@@ -1,0 +1,15 @@
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.AssemblyInfo.cs
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\bin\Debug\net9.0\WebAPI.Infrastructure.deps.json
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\bin\Debug\net9.0\WebAPI.Infrastructure.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\bin\Debug\net9.0\WebAPI.Infrastructure.pdb
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\bin\Debug\net9.0\WebAPI.Domain.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\bin\Debug\net9.0\WebAPI.Domain.pdb
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.I.7448B489.Up2Date
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\refint\WebAPI.Infrastructure.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.pdb
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\ref\WebAPI.Infrastructure.dll

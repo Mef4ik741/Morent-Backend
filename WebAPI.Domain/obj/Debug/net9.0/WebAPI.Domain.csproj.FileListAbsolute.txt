@@ -1,0 +1,11 @@
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\bin\Debug\net9.0\WebAPI.Domain.deps.json
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\bin\Debug\net9.0\WebAPI.Domain.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\bin\Debug\net9.0\WebAPI.Domain.pdb
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.AssemblyInfoInputs.cache
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.AssemblyInfo.cs
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.csproj.CoreCompileInputs.cache
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\refint\WebAPI.Domain.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.pdb
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\ref\WebAPI.Domain.dll
