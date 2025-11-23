@@ -72,19 +72,6 @@ public class BookingsService : IBookingsService
 
         var totalPrice = car.Price * days;
 
-        var hasSufficientBalance = await _balanceService.HasSufficientBalanceAsync(renterUserId, totalPrice);
-        if (!hasSufficientBalance)
-        {
-            throw new InvalidOperationException("Недостаточно средств на балансе для бронирования");
-        }
-
-        await _balanceService.ProcessPaymentAsync(
-            renterUserId,
-            totalPrice,
-            TransactionType.Payment,
-            $"Оплата аренды автомобиля {car.Name}"
-        );
-
         var booking = new CarBooking
         {
             Id = Guid.NewGuid().ToString(),
@@ -129,7 +116,7 @@ public class BookingsService : IBookingsService
     {
         var booking = await _context.CarBookings.FindAsync(id);
         if (booking == null) return false;
-        booking.StatusActive = false;
+        _context.CarBookings.Remove(booking);
         await _context.SaveChangesAsync();
         return true;
     }
@@ -153,6 +140,22 @@ public class BookingsService : IBookingsService
             .Where(b => b.StartDate >= startDate && b.EndDate <= endDate)
             .OrderBy(b => b.StartDate)
             .ToListAsync();
+        return list.Select(Map);
+    }
+
+    public async Task<IEnumerable<BookingResponseDTO>> GetOwnerRequestsAsync(string ownerUserId)
+    {
+        if (string.IsNullOrWhiteSpace(ownerUserId))
+        {
+            return Enumerable.Empty<BookingResponseDTO>();
+        }
+
+        var list = await _context.CarBookings
+            .Include(b => b.Car)
+            .Where(b => b.Car.OwnerUserId == ownerUserId && b.StatusActive && !b.Agreement)
+            .OrderByDescending(b => b.StartDate)
+            .ToListAsync();
+
         return list.Select(Map);
     }
 
@@ -231,6 +234,11 @@ public class BookingsService : IBookingsService
             .ToList();
 
         return images;
+    }
+
+    public async Task<RentNotificationDto?> RespondToRentRequestAsync(string bookingId, string ownerUserId, bool isApproved, string? message)
+    {
+        return await _notificationService.RespondToRentRequestAsync(bookingId, ownerUserId, isApproved, message);
     }
 
     private static BookingResponseDTO Map(CarBooking b)

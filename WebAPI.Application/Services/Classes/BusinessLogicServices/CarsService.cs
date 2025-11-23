@@ -276,6 +276,62 @@ public class CarsService : ICarsService
         )).ToList();
     }
 
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(List<string> locations)
+    {
+        if (locations == null || locations.Count == 0)
+        {
+            return Enumerable.Empty<CarResponseDTO>();
+        }
+
+        var normalizedLocations = locations
+            .Where(l => !string.IsNullOrWhiteSpace(l))
+            .Select(l => l.Trim().ToLower())
+            .Distinct()
+            .ToList();
+
+        if (normalizedLocations.Count == 0)
+        {
+            return Enumerable.Empty<CarResponseDTO>();
+        }
+
+        var cars = await _context.Cars
+            .Where(c => normalizedLocations.Contains(c.Location.ToLower()))
+            .ToListAsync();
+
+        LoadImageUrls(cars);
+
+        var now = DateTime.Now;
+        var ids = cars.Select(c => c.Id).ToList();
+        var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
+
+        return cars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
+    }
+
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync()
+    {
+        return await GetCarsByLocationsAsync(new List<string> { "Baki" });
+    }
+
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync()
+    {
+        return await GetCarsByLocationsAsync(new List<string> { "Yasamal" });
+    }
+
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInNarimanovAsync()
+    {
+        return await GetCarsByLocationsAsync(new List<string> { "Narimanov" });
+    }
+
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInSahilAsync()
+    {
+        return await GetCarsByLocationsAsync(new List<string> { "Sahil" });
+    }
+
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInIcheriSeherAsync()
+    {
+        return await GetCarsByLocationsAsync(new List<string> { "Icheri seher" });
+    }
+
     private void LoadImageUrls(Car car)
     {
         if (!string.IsNullOrEmpty(car.ImageUrlsJson))

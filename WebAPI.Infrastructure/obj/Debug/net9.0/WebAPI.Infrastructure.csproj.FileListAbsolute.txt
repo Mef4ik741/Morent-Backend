@@ -13,3 +13,4 @@ C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\W
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\refint\WebAPI.Infrastructure.dll
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.pdb
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\ref\WebAPI.Infrastructure.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Infrastructure\obj\Debug\net9.0\WebAPI.Infrastructure.sourcelink.json

@@ -9,3 +9,4 @@ C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Do
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\refint\WebAPI.Domain.dll
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.pdb
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\ref\WebAPI.Domain.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Domain\obj\Debug\net9.0\WebAPI.Domain.sourcelink.json

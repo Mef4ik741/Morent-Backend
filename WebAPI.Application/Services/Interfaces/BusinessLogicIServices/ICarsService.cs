@@ -31,4 +31,12 @@ public interface ICarsService
 
     Task<List<ListCarsDTO>> GetCarsSearchAsync(string name);
 
+    Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(List<string> locations);
+
+    Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync();
+    Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync();
+    Task<IEnumerable<CarResponseDTO>> GetCarsInNarimanovAsync();
+    Task<IEnumerable<CarResponseDTO>> GetCarsInSahilAsync();
+    Task<IEnumerable<CarResponseDTO>> GetCarsInIcheriSeherAsync();
+
 }

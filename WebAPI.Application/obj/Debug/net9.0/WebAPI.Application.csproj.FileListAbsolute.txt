@@ -15,3 +15,4 @@ C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Application\obj\Debug\net9.0\WebA
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Application\obj\Debug\net9.0\refint\WebAPI.Application.dll
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Application\obj\Debug\net9.0\WebAPI.Application.pdb
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Application\obj\Debug\net9.0\ref\WebAPI.Application.dll
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI.Application\obj\Debug\net9.0\WebAPI.Application.sourcelink.json

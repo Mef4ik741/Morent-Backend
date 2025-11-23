@@ -235,4 +235,79 @@ public class CarController : ControllerBase
     {
         return await _carsService.GetCarsSearchAsync(name);
     }
+
+    [HttpGet("location/baki")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCarsInBaki()
+    {
+        try
+        {
+            var cars = await _carsService.GetCarsInBakiAsync();
+            return Ok(cars);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Ошибка при получении автомобилей в Baki: {ex.Message}");
+        }
+    }
+
+    [HttpGet("location/yasamal")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCarsInYasamal()
+    {
+        try
+        {
+            var cars = await _carsService.GetCarsInYasamalAsync();
+            return Ok(cars);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Ошибка при получении автомобилей в Yasamal: {ex.Message}");
+        }
+    }
+
+    [HttpGet("location/narimanov")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCarsInNarimanov()
+    {
+        try
+        {
+            var cars = await _carsService.GetCarsInNarimanovAsync();
+            return Ok(cars);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Ошибка при получении автомобилей в Narimanov: {ex.Message}");
+        }
+    }
+
+    [HttpGet("location/sahil")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCarsInSahil()
+    {
+        try
+        {
+            var cars = await _carsService.GetCarsInSahilAsync();
+            return Ok(cars);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Ошибка при получении автомобилей в Sahil: {ex.Message}");
+        }
+    }
+
+    [HttpGet("location/icheri-seher")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCarsInIcheriSeher()
+    {
+        try
+        {
+            var cars = await _carsService.GetCarsInIcheriSeherAsync();
+            return Ok(cars);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Ошибка при получении автомобилей в Icheri seher: {ex.Message}");
+        }
+    }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WebAPI.Application.DTOs;
 using WebAPI.Application.Services.Interfaces.BusinessLogicIServices;
 
@@ -16,6 +17,8 @@ public class BookingController : ControllerBase
     {
         _bookingsService = bookingsService;
     }
+
+    private string? GetUserId() => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
@@ -45,6 +48,20 @@ public class BookingController : ControllerBase
     public async Task<IActionResult> GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
     {
         var list = await _bookingsService.GetByDateRangeAsync(startDate, endDate);
+        return Ok(list);
+    }
+
+    [HttpGet("owner/requests")]
+    [Authorize(Roles = "AppAdmin,AppSuperAdmin,User,UserVerified")]
+    public async Task<IActionResult> GetOwnerRequests()
+    {
+        var userId = GetUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized(new { message = "Пользователь не авторизован" });
+        }
+
+        var list = await _bookingsService.GetOwnerRequestsAsync(userId);
         return Ok(list);
     }
 
@@ -83,12 +100,37 @@ public class BookingController : ControllerBase
         var ok = await _bookingsService.CancelAsync(id);
         return ok ? Ok() : NotFound();
     }
-    
+
+    [HttpPost("{bookingId}/owner-decision")]
+    [Authorize(Roles = "AppAdmin,AppSuperAdmin,User,UserVerified")]
+    public async Task<IActionResult> OwnerDecision(string bookingId, [FromBody] OwnerDecisionRequest request)
+    {
+        var userId = GetUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized(new { message = "Пользователь не авторизован" });
+        }
+
+        var result = await _bookingsService.RespondToRentRequestAsync(bookingId, userId, request.IsApproved, request.Message);
+
+        if (result == null)
+        {
+            return NotFound(new { success = false, message = "Бронирование или уведомление не найдено, либо нет прав" });
+        }
+
+        return Ok(new
+        {
+            success = true,
+            message = request.IsApproved ? "Запрос одобрен" : "Запрос отклонен",
+            data = result
+        });
+    }
+
     [HttpGet("{id}/images")]
     [AllowAnonymous]
     public async Task<IActionResult> GetImages(string id)
     {
-        try 
+        try
         {
             var images = await _bookingsService.GetImagesForBookingAsync(id);
             return images is null ? NotFound() : Ok(images);

@@ -104,7 +104,7 @@ public class AccountService : IAccountService
                 Email = request.Email,
                 Password = HashPassword(request.Password),
                 CreatedAt = DateTime.UtcNow,
-                IsConfirmed = true,
+                IsConfirmed = false,
                 IsVerified = false,
                 Balance = 0,
                 Rank = 0,

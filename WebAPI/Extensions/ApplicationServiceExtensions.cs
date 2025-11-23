@@ -182,7 +182,7 @@ public static class ApplicationServiceExtensions
         });
 
         services.AddScoped<ICloudinaryService, CloudinaryService>();
-        services.AddScoped<IEmailSender, DummyEmailSender>();
+        services.AddScoped<IEmailSender, SmtpEmailSender>();
         services.AddScoped<IEmailService, EmailService>();
 
         return services;
