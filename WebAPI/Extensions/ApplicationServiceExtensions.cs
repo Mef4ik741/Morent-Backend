@@ -173,12 +173,12 @@ public static class ApplicationServiceExtensions
                         "http://26.15.223.176:5173",
                         "https://26.15.223.176:5173",
                         "http://localhost:3000",
-                        "https://localhost:3000"
+                        "https://localhost:3000",
+                        "https://cool-fudge-7ca10b.netlify.app"
                     )
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowCredentials()
-                    .SetIsOriginAllowed(_ => true));
+                    .AllowCredentials());
         });
 
         services.AddScoped<ICloudinaryService, CloudinaryService>();
