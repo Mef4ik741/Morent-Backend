@@ -64,7 +64,14 @@ public class AccountService : IAccountService
             .Replace("{Username}", username)
             .Replace("{ConfirmationLink}", confirmationLink);
 
-        await _emailSender.SendEmailAsync(email, "Подтверждение email", message);
+        try
+        {
+            await _emailSender.SendEmailAsync(email, "Подтверждение email", message);
+        }
+        catch (Exception ex)
+        {
+            return Result.Error($"Не удалось отправить письмо подтверждения: {ex.Message}");
+        }
         
         return Result.Success("Письмо с подтверждением отправлено");
     }
