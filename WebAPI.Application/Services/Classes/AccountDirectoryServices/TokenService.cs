@@ -47,7 +47,6 @@ public class TokenService : ITokenService
         {
             lifetimeMinutes = cfgMinutes;
         }
-
         var securityToken = new JwtSecurityToken(
             issuer: _configuration["JWT:Issuer"],
             audience: _configuration["JWT:Audience"],

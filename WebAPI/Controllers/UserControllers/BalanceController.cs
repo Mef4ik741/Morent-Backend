@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebAPI.Application.DTOs;
@@ -200,4 +200,4 @@ public class BalanceController : ControllerBase
             return StatusCode(500, $"Внутренняя ошибка сервера: {ex.Message}");
         }
     }
-}
+}*/

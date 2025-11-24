@@ -68,7 +68,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IRoleService, RoleService>();
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IBalanceService, BalanceService>();
+       // services.AddScoped<IBalanceService, BalanceService>();
         services.AddScoped<IReviewService, ReviewService>();
         
         services.AddScoped<IBookingsService, BookingsService>();

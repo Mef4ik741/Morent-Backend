@@ -310,7 +310,6 @@ public class UserService : IUserService
         }
     }
 
-    // Новые методы для поиска пользователей для чата
     public async Task<IEnumerable<UserSearchResultDto>> SearchUsersByUsernameAsync(string query, int limit)
     {
         try

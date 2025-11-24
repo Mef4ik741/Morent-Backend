@@ -145,13 +145,4 @@ public class AccountController : ControllerBase
         if (profile == null) { return NotFound(new { Message = "Пользователь не найден" }); }
         return Ok(profile);
     }
-
-}
-
-public class TestEmailRequest
-{
-    public string Email { get; set; } = string.Empty;
-    public string Type { get; set; } = string.Empty; // confirmation, reset, welcome
-    public string? Username { get; set; }
-    public string? Link { get; set; }
 }
