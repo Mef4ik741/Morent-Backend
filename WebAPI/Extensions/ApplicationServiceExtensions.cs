@@ -27,9 +27,9 @@ public static class ApplicationServiceExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Auth API",
+                Title = "Morent API",
                 Version = "v1",
-                Description = "Authentication and Authorization API"
+                Description = "Authentication and Business API"
             });
 
             // Use full type names for schema Ids to avoid collisions
