@@ -29,7 +29,7 @@ public interface ICarsService
     
     Task<List<string>> UploadCarImagesAsync(List<IFormFile> files);
 
-    Task<List<ListCarsDTO>> GetCarsSearchAsync(string name);
+    Task<List<ListCarsDTO>> GetCarsSearchAsync(string name, int page = 1, int pageSize = 15);
 
     Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(List<string> locations);
 

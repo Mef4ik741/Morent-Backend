@@ -231,9 +231,10 @@ public class CarController : ControllerBase
 
     [HttpGet("CarsSearched")]
     [AllowAnonymous]
-    public async Task<List<ListCarsDTO>> GetListCarsSearch(string name)
+    public async Task<IActionResult> GetListCarsSearch([FromQuery] string name, [FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
-        return await _carsService.GetCarsSearchAsync(name);
+        var cars = await _carsService.GetCarsSearchAsync(name, page, pageSize);
+        return Ok(cars);
     }
 
     [HttpGet("location/baki")]

@@ -256,17 +256,28 @@ public class CarsService : ICarsService
         return myCars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
     }
 
-    public async Task<List<ListCarsDTO>> GetCarsSearchAsync(string name)
+    public async Task<List<ListCarsDTO>> GetCarsSearchAsync(string name, int page = 1, int pageSize = 15)
     {
         if (string.IsNullOrWhiteSpace(name))
             return new List<ListCarsDTO>();
-
-        var cars = await _context.Cars
-            .Where(c => EF.Functions.Like(c.Location.ToLower(), $"%{name.ToLower()}%"))
+    
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+    
+        // Приводим поисковую строку к нижнему регистру
+        var searchName = name.Trim().ToLower();
+    
+        var query = _context.Cars
+            .Where(c => c.Location != null && EF.Functions.Like(c.Location.ToLower(), $"%{searchName}%"))
+            .AsQueryable();
+    
+        var cars = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
-
+    
         LoadImageUrls(cars);
-
+    
         return cars.Select(c => new ListCarsDTO(
             c.Id,
             c.ImageUrl ?? c.ImageUrls.FirstOrDefault(),
@@ -276,6 +287,7 @@ public class CarsService : ICarsService
             c.Price
         )).ToList();
     }
+
 
     public async Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(List<string> locations)
     {
