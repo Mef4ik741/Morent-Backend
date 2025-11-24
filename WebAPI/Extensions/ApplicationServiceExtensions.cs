@@ -60,7 +60,7 @@ public static class ApplicationServiceExtensions
 
         // БД
         services.AddDbContext<Context>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("Default")));
+            options.UseNpgsql(configuration.GetConnectionString("Default")));
 
         // Сервисы
         services.AddScoped<IAccountService, AccountService>();
