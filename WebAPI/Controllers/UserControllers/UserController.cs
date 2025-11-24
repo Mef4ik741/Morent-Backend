@@ -136,7 +136,7 @@ public class UserController : ControllerBase
     
     [HttpPut("UpdateUser")]
     [Authorize(Policy = "AdminPolicy")]
-    public async Task<IActionResult> UpdateUser(string id ,UpdateUserRequest request)
+    public async Task<IActionResult> UpdateUser(string id, UpdateUserRequest request)
     {
         return await _userService.UpdateUser(id,request);
     }
@@ -147,5 +147,4 @@ public class UserController : ControllerBase
     {
         return await _userService.DeleteUser(id);
     }
-    
 }
