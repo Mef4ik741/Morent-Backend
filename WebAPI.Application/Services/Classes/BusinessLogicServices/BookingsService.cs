@@ -13,13 +13,11 @@ public class BookingsService : IBookingsService
 {
     private readonly Context _context;
     private readonly IRentNotificationService _notificationService;
-    private readonly IBalanceService _balanceService;
 
-    public BookingsService(Context context, IRentNotificationService notificationService, IBalanceService balanceService)
+    public BookingsService(Context context, IRentNotificationService notificationService)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
-        _balanceService = balanceService ?? throw new ArgumentNullException(nameof(balanceService));
     }
 
     public async Task<BookingResponseDTO?> GetByIdAsync(string id)
