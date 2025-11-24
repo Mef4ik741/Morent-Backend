@@ -15,13 +15,13 @@ public interface ICarsService
     
     Task<bool> DeleteCarAsync(string id);
     
-    Task<IEnumerable<CarResponseDTO>> GetCarsByBrandAsync(string brand);
+    Task<IEnumerable<CarResponseDTO>> GetCarsByBrandAsync(string brand, int page = 1, int pageSize = 15);
     
-    Task<IEnumerable<CarResponseDTO>> GetCarsByYearAsync(int year);
+    Task<IEnumerable<CarResponseDTO>> GetCarsByYearAsync(int year, int page = 1, int pageSize = 15);
     
-    Task<IEnumerable<CarResponseDTO>> GetAvailableCarsAsync();
+    Task<IEnumerable<CarResponseDTO>> GetAvailableCarsAsync(int page = 1, int pageSize = 15);
     
-    Task<IEnumerable<CarResponseDTO>> GetCarsByPriceRangeAsync(decimal minPrice, decimal maxPrice);
+    Task<IEnumerable<CarResponseDTO>> GetCarsByPriceRangeAsync(decimal minPrice, decimal maxPrice, int page = 1, int pageSize = 15);
     
     Task<IEnumerable<CarResponseDTO>> GetMyListedCarsForVerifiedAsync(string userId);
     

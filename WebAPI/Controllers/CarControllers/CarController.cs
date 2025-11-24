@@ -132,11 +132,11 @@ public class CarController : ControllerBase
 
     [HttpGet("year/{year}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsByYear(int year)
+    public async Task<IActionResult> GetCarsByYear([FromQuery] int year, [FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsByYearAsync(year);
+            var cars = await _carsService.GetCarsByYearAsync(year, page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -147,11 +147,11 @@ public class CarController : ControllerBase
 
     [HttpGet("available")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAvailableCars()
+    public async Task<IActionResult> GetAvailableCars([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetAvailableCarsAsync();
+            var cars = await _carsService.GetAvailableCarsAsync(page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -162,11 +162,11 @@ public class CarController : ControllerBase
 
     [HttpGet("price")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsByPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
+    public async Task<IActionResult> GetCarsByPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice, [FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsByPriceRangeAsync(minPrice, maxPrice);
+            var cars = await _carsService.GetCarsByPriceRangeAsync(minPrice, maxPrice, page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -311,5 +311,4 @@ public class CarController : ControllerBase
             return StatusCode(500, $"Ошибка при получении автомобилей в Icheri Seher: {ex.Message}");
         }
     }
-
 }

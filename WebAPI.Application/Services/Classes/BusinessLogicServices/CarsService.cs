@@ -165,10 +165,20 @@ public class CarsService : ICarsService
         return true;
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsByBrandAsync(string brand)
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsByBrandAsync(string brand, int page = 1, int pageSize = 15)
     {
-        var cars = await _context.Cars
-            .Where(c => c.Brand.ToLower().Contains(brand.ToLower()))
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+
+        var searchBrand = brand.Trim().ToLower();
+
+        var query = _context.Cars
+            .Where(c => c.Brand != null && c.Brand.ToLower().Contains(searchBrand))
+            .AsQueryable();
+
+        var cars = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         LoadImageUrls(cars);
@@ -180,10 +190,18 @@ public class CarsService : ICarsService
         return cars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsByYearAsync(int year)
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsByYearAsync(int year, int page = 1, int pageSize = 15)
     {
-        var cars = await _context.Cars
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+
+        var query = _context.Cars
             .Where(c => c.Year == year)
+            .AsQueryable();
+
+        var cars = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         LoadImageUrls(cars);
@@ -195,16 +213,24 @@ public class CarsService : ICarsService
         return cars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetAvailableCarsAsync()
+    public async Task<IEnumerable<CarResponseDTO>> GetAvailableCarsAsync(int page = 1, int pageSize = 15)
     {
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+
         var currentDate = DateTime.UtcNow;
 
-        var cars = await _context.Cars
+        var query = _context.Cars
             .Where(c => !_context.CarBookings.Any(b =>
                 b.CarId == c.Id &&
                 b.StatusActive &&
                 b.StartDate <= currentDate &&
                 b.EndDate >= currentDate))
+            .AsQueryable();
+
+        var cars = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         LoadImageUrls(cars);
@@ -212,10 +238,18 @@ public class CarsService : ICarsService
         return cars.Select(c => MapToResponseDTO(c, true));
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsByPriceRangeAsync(decimal minPrice, decimal maxPrice)
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsByPriceRangeAsync(decimal minPrice, decimal maxPrice, int page = 1, int pageSize = 15)
     {
-        var cars = await _context.Cars
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+
+        var query = _context.Cars
             .Where(c => c.Price >= minPrice && c.Price <= maxPrice)
+            .AsQueryable();
+
+        var cars = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
         LoadImageUrls(cars);
@@ -226,6 +260,7 @@ public class CarsService : ICarsService
 
         return cars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
     }
+
 
     public async Task<IEnumerable<CarResponseDTO>> GetMyListedCarsForVerifiedAsync(string userId)
     {
