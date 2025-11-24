@@ -27,7 +27,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(cars);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var ids = cars.Select(c => c.Id).ToList();
         var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
 
@@ -47,7 +47,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(car);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var hasActiveBooking = await UtilsClass.HasActiveBookingAsync(_context, id, now);
 
         return MapToResponseDTO(car, !hasActiveBooking);
@@ -138,7 +138,7 @@ public class CarsService : ICarsService
 
         await _context.SaveChangesAsync();
         
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var hasActiveBooking = await UtilsClass.HasActiveBookingAsync(_context, id, now);
             
         return MapToResponseDTO(existingCar, !hasActiveBooking);
@@ -173,7 +173,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(cars);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var ids = cars.Select(c => c.Id).ToList();
         var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
 
@@ -188,7 +188,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(cars);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var ids = cars.Select(c => c.Id).ToList();
         var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
 
@@ -197,7 +197,7 @@ public class CarsService : ICarsService
 
     public async Task<IEnumerable<CarResponseDTO>> GetAvailableCarsAsync()
     {
-        var currentDate = DateTime.Now;
+        var currentDate = DateTime.UtcNow;
 
         var cars = await _context.Cars
             .Where(c => !_context.CarBookings.Any(b =>
@@ -220,7 +220,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(cars);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var ids = cars.Select(c => c.Id).ToList();
         var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
 
@@ -249,7 +249,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(myCars);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var ids = myCars.Select(c => c.Id).ToList();
         var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
 
@@ -301,7 +301,7 @@ public class CarsService : ICarsService
 
         LoadImageUrls(cars);
 
-        var now = DateTime.Now;
+        var now = DateTime.UtcNow;
         var ids = cars.Select(c => c.Id).ToList();
         var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
 
