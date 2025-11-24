@@ -21,8 +21,9 @@ public class ReviewConfig : IEntityTypeConfiguration<Review>
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.Property(r => r.Rating)
-            .HasColumnType("decimal(2,1)")
-            .IsRequired();
+            // ИСПРАВЛЕНИЕ 1: Удаляем HasColumnType, полагаясь на Npgsql для 'decimal' -> 'numeric'
+            // ИЛИ используем: .HasColumnType("numeric(2,1)")
+            .IsRequired(); 
 
         builder.Property(r => r.Comment)
             .IsRequired(false)
@@ -32,7 +33,7 @@ public class ReviewConfig : IEntityTypeConfiguration<Review>
         builder.HasIndex(r => new { r.UserId, r.ReviewerId })
             .IsUnique();
 
-        // Диапазон рейтинга 0..5
-        builder.HasCheckConstraint("CK_Review_Rating_Range", "[Rating] >= 0 AND [Rating] <= 5");
+        // ИСПРАВЛЕНИЕ 2: Синтаксис CHECK-ограничения для PostgreSQL
+        builder.HasCheckConstraint("CK_Review_Rating_Range", "\"Rating\" >= 0 AND \"Rating\" <= 5");
     }
 }

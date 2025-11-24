@@ -22,15 +22,17 @@ public class ChatConversationConfig : IEntityTypeConfiguration<ChatConversation>
                 
         builder.Property(x => x.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'"); // <-- ИСПРАВЛЕНО
                 
         builder.Property(x => x.LastMessageTime)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'"); // <-- ИСПРАВЛЕНО
                 
         builder.Property(x => x.IsActive)
             .HasDefaultValue(true);
                 
+        // ... (остальная часть конфигурации остается прежней)
+        
         // Уникальный индекс для пары пользователей
         builder.HasIndex(x => new { x.User1Id, x.User2Id })
             .IsUnique()
@@ -47,5 +49,3 @@ public class ChatConversationConfig : IEntityTypeConfiguration<ChatConversation>
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
-
-

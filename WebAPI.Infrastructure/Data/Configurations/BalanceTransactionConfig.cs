@@ -19,7 +19,8 @@ public class BalanceTransactionConfig : IEntityTypeConfiguration<BalanceTransact
             .IsRequired();
             
         builder.Property(bt => bt.Amount)
-            .HasColumnType("decimal(18,2)")
+            // Примечание: decimal(18,2) в PostgreSQL соответствует numeric(18,2)
+            .HasColumnType("decimal(18,2)") 
             .IsRequired();
             
         builder.Property(bt => bt.Type)
@@ -30,7 +31,8 @@ public class BalanceTransactionConfig : IEntityTypeConfiguration<BalanceTransact
             .IsRequired();
             
         builder.Property(bt => bt.CreatedAt)
-            .HasDefaultValueSql("GETUTCDATE()")
+            // ИСПРАВЛЕНИЕ: Замена MSSQL функции на PostgreSQL эквивалент
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'")
             .IsRequired();
             
         builder.Property(bt => bt.PaymentMethod)

@@ -18,7 +18,10 @@ public class CarBookingConfig : IEntityTypeConfiguration<CarBooking>
         builder.Property(b => b.TotalPrice).HasColumnType("decimal(18,2)");
         builder.Property(b => b.Agreement).IsRequired();
         builder.Property(b => b.StatusActive).IsRequired();
-        builder.Property(b => b.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+        
+        builder.Property(b => b.CreatedAt)
+            // ИСПРАВЛЕНИЕ: Замена MSSQL функции на PostgreSQL эквивалент
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'"); 
 
         builder.HasIndex(b => new { b.CarId, b.StartDate, b.EndDate });
 

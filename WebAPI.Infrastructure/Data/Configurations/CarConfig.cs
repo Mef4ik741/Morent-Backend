@@ -18,10 +18,11 @@ public class CarConfig : IEntityTypeConfiguration<Car>
         builder.Property(c => c.Description).IsRequired().HasMaxLength(1000);
         
         // Настройка для хранения списка URL изображений
+        // ИСПРАВЛЕННАЯ КОНФИГУРАЦИЯ
         builder.Property(c => c.ImageUrlsJson)
             .IsRequired()
-            .HasDefaultValue("[]")
-            .HasColumnType("nvarchar(max)");
+            .HasDefaultValue("[]"); 
+            // .HasColumnType("nvarchar(max)") -- УДАЛЕНА!
             
         // Игнорируем свойство ImageUrls, так как оно маппится из ImageUrlsJson
         builder.Ignore(c => c.ImageUrls);

@@ -33,7 +33,8 @@ public class ChatMessageConfig : IEntityTypeConfiguration<ChatMessage>
                 
         builder.Property(x => x.Timestamp)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            // ИСПРАВЛЕНИЕ: Замена MSSQL функции на PostgreSQL эквивалент
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'");
                 
         builder.Property(x => x.IsRead)
             .HasDefaultValue(false);

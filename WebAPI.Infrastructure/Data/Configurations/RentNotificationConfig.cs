@@ -40,7 +40,8 @@ public class RentNotificationConfig : IEntityTypeConfiguration<RentNotification>
 
         builder.Property(rn => rn.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            // ИСПРАВЛЕНИЕ: Замена MSSQL функции на PostgreSQL эквивалент
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'");
 
         // Связи
         builder.HasOne(rn => rn.Booking)

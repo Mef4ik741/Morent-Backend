@@ -31,7 +31,8 @@ public class RefreshTokenConfig : IEntityTypeConfiguration<RefreshToken>
             
         builder.Property(rt => rt.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            // ИСПРАВЛЕНИЕ: Замена MSSQL функции на PostgreSQL эквивалент
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'");
             
         builder.Property(rt => rt.RevokedAt)
             .IsRequired(false);

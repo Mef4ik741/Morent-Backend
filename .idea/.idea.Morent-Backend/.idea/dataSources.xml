@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="0644911f-8baa-4ca9-a9c0-92416d1bb827">
-      <driver-ref>sqlserver.jb</driver-ref>
+    <data-source source="LOCAL" name="postgres@morentdatabase.clys06wc8cte.eu-north-1.rds.amazonaws.com" uuid="4d4b2b24-9952-4058-8b5f-8c898168e607">
+      <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
-      <jdbc-url>Server=localhost,1433</jdbc-url>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://morentdatabase.clys06wc8cte.eu-north-1.rds.amazonaws.com:5432/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

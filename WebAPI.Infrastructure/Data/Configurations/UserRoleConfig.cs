@@ -16,14 +16,19 @@ public class UserRoleConfig  : IEntityTypeConfiguration<UserRole>
         // Настройка полей
         builder.Property(ur => ur.RoleId).IsRequired();
         builder.Property(ur => ur.UserId).IsRequired(false);
+        
         builder.Property(ur => ur.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            // ИСПРАВЛЕНИЕ: Замена GETUTCDATE() на PostgreSQL эквивалент
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'");
 
         // Создаем уникальные индексы для комбинаций
+        // ПРИМЕЧАНИЕ: HasFilter("[UserId] IS NOT NULL") - это тоже MSSQL-синтаксис.
+        // Для PostgreSQL фильтр должен быть: .HasFilter("(\"UserId\" IS NOT NULL)")
         builder.HasIndex(ur => new { ur.RoleId, ur.UserId })
             .IsUnique()
-            .HasFilter("[UserId] IS NOT NULL");
+            // ИСПРАВЛЕНИЕ: Синтаксис фильтра для PostgreSQL
+            .HasFilter("(\"UserId\" IS NOT NULL)");
 
         // Связи
         builder.HasOne(ur => ur.Role)

@@ -10,8 +10,26 @@ public class RoleConfig : IEntityTypeConfiguration<Role>
     {
         builder.HasKey(r => r.Id);
         builder.ToTable("Roles");
-        builder.Property(r => r.Name).IsRequired();
-        builder.Property(r => r.Name).HasMaxLength(30);
         
+        // Поле 'Name'
+        builder.Property(r => r.Name).IsRequired().HasMaxLength(30);
+
+        // --- ПОТЕНЦИАЛЬНОЕ ИСПРАВЛЕНИЕ ---
+        // Если в вашей модели Role есть поле CreatedAt,
+        // и оно должно иметь значение по умолчанию, используйте:
+        /*
+        builder.Property(r => r.CreatedAt)
+            .IsRequired()
+            // Используем исправленную функцию PostgreSQL
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'utc'"); 
+        */
+        // ---------------------------------
+        
+        // Связь с UserRoles (если есть)
+        /*
+        builder.HasMany(r => r.UserRoles)
+            .WithOne(ur => ur.Role)
+            .HasForeignKey(ur => ur.RoleId);
+        */
     }
 }

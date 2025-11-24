@@ -36,10 +36,12 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         var createdAt = builder.Property(u => u.CreatedAt);
         createdAt.IsRequired();
-        createdAt.HasDefaultValueSql("GETUTCDATE()");
+        // ИСПРАВЛЕНИЕ: Замена MSSQL функции на PostgreSQL эквивалент
+        createdAt.HasDefaultValueSql("NOW() AT TIME ZONE 'utc'");
         
         var balance = builder.Property(u => u.Balance);
-        balance.HasColumnType("decimal(18,2)");
+        // Примечание: decimal(18,2) в PostgreSQL соответствует numeric(18,2)
+        balance.HasColumnType("decimal(18,2)"); 
         balance.HasDefaultValue(0.00m);
         balance.IsRequired();
     }
