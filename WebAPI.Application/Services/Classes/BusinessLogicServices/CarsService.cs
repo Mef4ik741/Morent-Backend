@@ -382,39 +382,26 @@ public class CarsService : ICarsService
     {
         if (page <= 0) page = 1;
         if (pageSize <= 0) pageSize = 15;
-    
+
         var lowerLocations = locations
             .Select(l => l.Trim().ToLower())
             .ToList();
-    
+
         var query = _context.Cars
             .Where(c => lowerLocations.Contains(c.Location.ToLower()));
-    
-        return await query
+
+        var cars = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(c => new CarResponseDTO(
-                c.Id,
-                c.Name,
-                c.Brand,
-                c.Model,
-                c.Year,
-                c.Price,
-                c.Description,
-                c.Location,
-                true,                          // IsAvailable — позже можно заменить
-                c.ImageUrl,
-                c.OwnerUserId,
-                c.ImageUrls
-                    .Select((url, index) => new CarImageDTO(
-                        Guid.NewGuid().ToString(),
-                        url,
-                        index == 0,
-                        index
-                    ))
-                    .ToList()
-            ))
             .ToListAsync();
+
+        LoadImageUrls(cars);
+
+        // Пока считаем все машины доступными; при необходимости
+        // можно добавить расчёт доступности через бронирования.
+        return cars
+            .Select(c => MapToResponseDTO(c, true))
+            .ToList();
     }
 
     
