@@ -50,6 +50,17 @@ public class BookingsService : IBookingsService
         return list.Select(Map);
     }
 
+    public async Task<BookingResponseDTO?> GetActiveByCarAndUserAsync(string carId, string userId)
+    {
+        var booking = await _context.CarBookings
+            .Include(b => b.Car)
+            .Where(b => b.CarId == carId && b.RenterUserId == userId && b.StatusActive)
+            .OrderByDescending(b => b.StartDate)
+            .FirstOrDefaultAsync();
+
+        return booking != null ? Map(booking) : null;
+    }
+
     public async Task<BookingResponseDTO> CreateAsync(string renterUserId, CreateBookingDTO dto)
     {
         if (!await IsCarAvailableAsync(dto.CarId, dto.StartDate, dto.EndDate))

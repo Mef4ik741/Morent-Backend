@@ -43,6 +43,30 @@ public class BookingController : ControllerBase
         return Ok(list);
     }
 
+    [HttpGet("by-car-and-user")]
+    [Authorize(Roles = "AppAdmin,AppSuperAdmin,User,UserVerified")]
+    public async Task<IActionResult> GetActiveByCarAndUser([FromQuery] string carId)
+    {
+        var userId = GetUserId();
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized(new { message = "Пользователь не авторизован" });
+        }
+
+        if (string.IsNullOrWhiteSpace(carId))
+        {
+            return BadRequest(new { message = "carId не может быть пустым" });
+        }
+
+        var booking = await _bookingsService.GetActiveByCarAndUserAsync(carId, userId);
+
+        return Ok(new
+        {
+            hasActiveBooking = booking != null,
+            booking
+        });
+    }
+
     [HttpGet("by-date-range")]
     [Authorize(Roles = "AppAdmin,AppSuperAdmin")]
     public async Task<IActionResult> GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)

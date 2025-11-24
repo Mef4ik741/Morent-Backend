@@ -133,15 +133,6 @@ public class AccountController : ControllerBase
         return Ok(new { result.Message, Success = true });
     }
 
-    [HttpPost("initiate-telegram-linking")]
-    public async Task<IActionResult> InitiateTelegramLinking([FromBody] InitiateLinkingDTO request)
-    {
-        var result = await _accountService.InitiateLinkingAsync(request);
-        
-        if (!result.IsSuccess) { return BadRequest(new { result.Message }); }
-        return Ok(new { result.Message, Success = true });
-    }
-    
     [Authorize]
     [HttpGet("profile")]
     public async Task<IActionResult> GetUserProfile()
@@ -153,48 +144,6 @@ public class AccountController : ControllerBase
         
         if (profile == null) { return NotFound(new { Message = "Пользователь не найден" }); }
         return Ok(profile);
-    }
-
-    [HttpPost("test-email")]
-    public async Task<IActionResult> TestEmailAsync([FromBody] TestEmailRequest request)
-    {
-        try
-        {
-            switch (request.Type.ToLower())
-            {
-                case "confirmation":
-                    await _emailService.SendEmailConfirmationAsync(
-                        request.Email, 
-                        request.Username ?? "Тестовый пользователь", 
-                        request.Link ?? "http://localhost:5222/confirm-email"
-                    );
-                    break;
-                    
-                case "reset":
-                    await _emailService.SendPasswordResetEmailAsync(
-                        request.Email, 
-                        request.Username ?? "Тестовый пользователь", 
-                        request.Link ?? "http://localhost:5222/reset-password"
-                    );
-                    break;
-                    
-                case "welcome":
-                    await _emailService.SendWelcomeEmailAsync(
-                        request.Email, 
-                        request.Username ?? "Тестовый пользователь"
-                    );
-                    break;
-                    
-                default:
-                    return BadRequest(new { Message = "Неизвестный тип email. Используйте: confirmation, reset, welcome" });
-            }
-
-            return Ok(new { Message = $"Email типа '{request.Type}' успешно отправлен на {request.Email}" });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { Message = $"Ошибка отправки email: {ex.Message}" });
-        }
     }
 
 }

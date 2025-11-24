@@ -272,7 +272,8 @@ public class CarsService : ICarsService
             c.ImageUrl ?? c.ImageUrls.FirstOrDefault(),
             c.Name,
             c.OwnerUsername,
-            c.Location
+            c.Location,
+            c.Price
         )).ToList();
     }
 

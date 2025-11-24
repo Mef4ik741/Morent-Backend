@@ -106,25 +106,4 @@ public class AuthController : ControllerBase
             return StatusCode(500, $"Внутренняя ошибка сервера: {ex.Message}");
         }
     }
-
-    [HttpGet("debug-config")]
-    public IActionResult DebugConfig()
-    {
-        try
-        {
-            return Ok(new
-            {
-                SecretKey = _configuration["JWT:SecretKey"]?.Substring(0, 10) + "...",
-                Issuer = _configuration["JWT:Issuer"],
-                ValidIssuer = _configuration["JWT:ValidIssuer"],
-                Audience = _configuration["JWT:Audience"],
-                ValidAudience = _configuration.GetSection("JWT:ValidAudience").Get<string[]>(),
-                TokenLifetimeMinutes = _configuration["JWT:TokenLifetimeMinutes"]
-            });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Ошибка при получении конфигурации: {ex.Message}");
-        }
-    }
 }

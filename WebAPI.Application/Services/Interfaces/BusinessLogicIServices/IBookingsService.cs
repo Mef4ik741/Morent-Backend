@@ -9,6 +9,7 @@ public interface IBookingsService
     Task<IEnumerable<BookingResponseDTO>> GetByCarAsync(string carId);
     Task<BookingResponseDTO> CreateAsync(string renterUserId, CreateBookingDTO dto);
     Task<bool> CancelAsync(string id);
+    Task<BookingResponseDTO?> GetActiveByCarAndUserAsync(string carId, string userId);
     Task<bool> IsCarAvailableAsync(string carId, DateTime startDate, DateTime endDate, string? excludeId = null);
     Task<IEnumerable<BookingResponseDTO>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);
     Task<IEnumerable<BookingResponseDTO>> GetOwnerRequestsAsync(string ownerUserId);

@@ -191,6 +191,5 @@ C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\refint\WebAPI.dl
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\WebAPI.pdb
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\WebAPI.genruntimeconfig.cache
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\ref\WebAPI.dll
-C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\WebAPI.sourcelink.json
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\bin\Debug\net9.0\WebAPI.staticwebassets.runtime.json
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\compressed\ib3e6f0fnk-m4hx1gaoiv.gz

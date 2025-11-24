@@ -98,4 +98,54 @@ public class UserController : ControllerBase
         var result = await _userService.GrantUserVerifiedRoleAsync(userId);
         return result;
     }
+
+    [HttpGet("Users")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetUsers()
+    {
+        return await _userService.GetUsers();
+    }
+
+    [HttpGet("Stats")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetStats()
+    {
+        return await _userService.GetStats();
+    }
+
+    [HttpGet("SearchUsers")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> SearchUsers(string query)
+    {
+        return await _userService.SearchUsers(query);
+    }
+    
+    [HttpGet("GetRoles")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetRoles()
+    {
+        return await _userService.GetRoles();
+    }
+
+    [HttpPost("CreateUser")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> CreateUser(CreateUserRequest request)
+    {
+        return await _userService.CreateUser(request);
+    }
+    
+    [HttpPut("UpdateUser")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> UpdateUser(string id ,UpdateUserRequest request)
+    {
+        return await _userService.UpdateUser(id,request);
+    }
+    
+    [HttpDelete("DeleteUser")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> DeleteUser(string id)
+    {
+        return await _userService.DeleteUser(id);
+    }
+    
 }
