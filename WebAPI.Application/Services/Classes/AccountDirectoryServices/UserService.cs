@@ -17,13 +17,24 @@ public class UserService : IUserService
         _context = context;
     }
 
-    public async Task<IActionResult> GetUsers()
+    public async Task<IActionResult> GetUsers(int page = 1, int pageSize = 10)
     {
         try
         {
-            var users = await _context.Users
+            if (page <= 0) page = 1;
+            if (pageSize <= 0) pageSize = 10;
+
+            var query = _context.Users
                 .Include(u => u.UserRoles)
-                .ThenInclude(ur => ur.Role)
+                .ThenInclude(ur => ur.Role);
+
+            int totalItems = await query.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var users = await query
+                .OrderBy(u => u.Id) // можно поменять сортировку
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(u => new
                 {
                     u.Id,
@@ -41,7 +52,14 @@ public class UserService : IUserService
                 })
                 .ToListAsync();
 
-            return new OkObjectResult(users);
+            return new OkObjectResult(new
+            {
+                data = users,
+                totalItems,
+                page,
+                pageSize,
+                totalPages
+            });
         }
         catch (Exception ex)
         {
@@ -49,7 +67,9 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<IActionResult> SearchUsers(string query)
+
+
+    public async Task<IActionResult> SearchUsers(string query, int page = 1, int pageSize = 10)
     {
         try
         {
@@ -58,12 +78,25 @@ public class UserService : IUserService
                 return new BadRequestObjectResult(new { message = "Параметр query обязателен" });
             }
 
+            if (page <= 0) page = 1;
+            if (pageSize <= 0) pageSize = 10;
+
             var q = query.Trim().ToLower();
 
-            var users = await _context.Users
+            var baseQuery = _context.Users
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
-                .Where(u => u.Username.ToLower().Contains(q) || u.Email.ToLower().Contains(q))
+                .Where(u => 
+                    u.Username.ToLower().Contains(q) || 
+                    u.Email.ToLower().Contains(q));
+
+            int totalItems = await baseQuery.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var users = await baseQuery
+                .OrderBy(u => u.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(u => new
                 {
                     u.Id,
@@ -81,13 +114,21 @@ public class UserService : IUserService
                 })
                 .ToListAsync();
 
-            return new OkObjectResult(users);
+            return new OkObjectResult(new
+            {
+                data = users,
+                totalItems,
+                page,
+                pageSize,
+                totalPages
+            });
         }
         catch (Exception ex)
         {
             return new ObjectResult(new { error = ex.Message }) { StatusCode = 500 };
         }
     }
+
 
     public async Task<IActionResult> CreateUser(CreateUserRequest request)
     {

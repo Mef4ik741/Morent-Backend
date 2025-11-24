@@ -101,9 +101,9 @@ public class UserController : ControllerBase
 
     [HttpGet("Users")]
     [Authorize(Policy = "AdminPolicy")]
-    public async Task<IActionResult> GetUsers()
+    public async Task<IActionResult> GetUsers(int page = 1, int pageSize = 10)
     {
-        return await _userService.GetUsers();
+        return await _userService.GetUsers(page, pageSize);
     }
 
     [HttpGet("Stats")]
@@ -115,9 +115,9 @@ public class UserController : ControllerBase
 
     [HttpGet("SearchUsers")]
     [Authorize(Policy = "AdminPolicy")]
-    public async Task<IActionResult> SearchUsers(string query)
+    public async Task<IActionResult> SearchUsers(string query, int page = 1, int pageSize = 10)
     {
-        return await _userService.SearchUsers(query);
+        return await _userService.SearchUsers(query, page, pageSize);
     }
     
     [HttpGet("GetRoles")]

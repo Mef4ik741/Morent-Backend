@@ -6,10 +6,10 @@ namespace WebAPI.Application.Services.Interfaces.AccountDirectoryIServices;
 
 public interface IUserService
 { 
-    Task<IActionResult> GetUsers();
+    Task<IActionResult> GetUsers(int page = 1, int pageSize = 10);
     Task<IActionResult> GetStats();
     Task<IActionResult> GetRoles();
-    Task<IActionResult> SearchUsers(string query);
+    Task<IActionResult> SearchUsers(string query, int page = 1, int pageSize = 10);
     Task<IActionResult> CreateUser(CreateUserRequest request);
     Task<IActionResult> UpdateUser(string id, UpdateUserRequest request);
     Task<IActionResult> DeleteUser(string id);
