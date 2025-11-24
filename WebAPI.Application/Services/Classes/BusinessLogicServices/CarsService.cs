@@ -308,29 +308,72 @@ public class CarsService : ICarsService
         return cars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync()
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync(int page = 1, int pageSize = 15)
     {
-        return await GetCarsByLocationsAsync(new List<string> { "Baki" });
+        return await GetCarsByLocationsAsync(new List<string> { "Baki" }, page, pageSize);  
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync()
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync(int page = 1, int pageSize = 15)
     {
-        return await GetCarsByLocationsAsync(new List<string> { "Yasamal" });
+        return await GetCarsByLocationsAsync(new List<string> { "Yasamal" }, page, pageSize);
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsInNarimanovAsync()
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInNarimanovAsync(int page = 1, int pageSize = 15)
     {
-        return await GetCarsByLocationsAsync(new List<string> { "Narimanov" });
+        return await GetCarsByLocationsAsync(new List<string> { "Narimanov" }, page, pageSize);
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsInSahilAsync()
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInSahilAsync(int page = 1, int pageSize = 15)
     {
-        return await GetCarsByLocationsAsync(new List<string> { "Sahil" });
+        return await GetCarsByLocationsAsync(new List<string> { "Sahil" }, page, pageSize);
     }
 
-    public async Task<IEnumerable<CarResponseDTO>> GetCarsInIcheriSeherAsync()
+    private async Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(
+        List<string> locations,
+        int page,
+        int pageSize)
     {
-        return await GetCarsByLocationsAsync(new List<string> { "Icheri seher" });
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+    
+        var lowerLocations = locations
+            .Select(l => l.Trim().ToLower())
+            .ToList();
+    
+        var query = _context.Cars
+            .Where(c => lowerLocations.Contains(c.Location.ToLower()));
+    
+        return await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(c => new CarResponseDTO(
+                c.Id,
+                c.Name,
+                c.Brand,
+                c.Model,
+                c.Year,
+                c.Price,
+                c.Description,
+                c.Location,
+                true,                          // IsAvailable — позже можно заменить
+                c.ImageUrl,
+                c.OwnerUserId,
+                c.ImageUrls
+                    .Select((url, index) => new CarImageDTO(
+                        Guid.NewGuid().ToString(),
+                        url,
+                        index == 0,
+                        index
+                    ))
+                    .ToList()
+            ))
+            .ToListAsync();
+    }
+
+    
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsInIcheriSeherAsync(int page = 1, int pageSize = 15)
+    {
+        return await GetCarsByLocationsAsync(new List<string> { "Icheri Seher" }, page, pageSize);
     }
 
     private void LoadImageUrls(Car car)

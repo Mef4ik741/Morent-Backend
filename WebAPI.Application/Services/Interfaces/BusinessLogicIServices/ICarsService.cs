@@ -33,10 +33,10 @@ public interface ICarsService
 
     Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(List<string> locations);
 
-    Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync();
-    Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync();
-    Task<IEnumerable<CarResponseDTO>> GetCarsInNarimanovAsync();
-    Task<IEnumerable<CarResponseDTO>> GetCarsInSahilAsync();
-    Task<IEnumerable<CarResponseDTO>> GetCarsInIcheriSeherAsync();
+    Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync(int page = 1, int pageSize = 15);
+    Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync(int page = 1, int pageSize = 15);
+    Task<IEnumerable<CarResponseDTO>> GetCarsInNarimanovAsync(int page = 1, int pageSize = 15);
+    Task<IEnumerable<CarResponseDTO>> GetCarsInSahilAsync(int page = 1, int pageSize = 15);
+    Task<IEnumerable<CarResponseDTO>> GetCarsInIcheriSeherAsync(int page = 1, int pageSize = 15);
 
 }

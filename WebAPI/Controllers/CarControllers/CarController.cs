@@ -238,11 +238,11 @@ public class CarController : ControllerBase
 
     [HttpGet("location/baki")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsInBaki()
+    public async Task<IActionResult> GetCarsInBaki([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsInBakiAsync();
+            var cars = await _carsService.GetCarsInBakiAsync(page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -250,14 +250,14 @@ public class CarController : ControllerBase
             return StatusCode(500, $"Ошибка при получении автомобилей в Baki: {ex.Message}");
         }
     }
-
+    
     [HttpGet("location/yasamal")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsInYasamal()
+    public async Task<IActionResult> GetCarsInYasamal([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsInYasamalAsync();
+            var cars = await _carsService.GetCarsInYasamalAsync(page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -265,14 +265,14 @@ public class CarController : ControllerBase
             return StatusCode(500, $"Ошибка при получении автомобилей в Yasamal: {ex.Message}");
         }
     }
-
+    
     [HttpGet("location/narimanov")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsInNarimanov()
+    public async Task<IActionResult> GetCarsInNarimanov([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsInNarimanovAsync();
+            var cars = await _carsService.GetCarsInNarimanovAsync(page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -280,14 +280,14 @@ public class CarController : ControllerBase
             return StatusCode(500, $"Ошибка при получении автомобилей в Narimanov: {ex.Message}");
         }
     }
-
+    
     [HttpGet("location/sahil")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsInSahil()
+    public async Task<IActionResult> GetCarsInSahil([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsInSahilAsync();
+            var cars = await _carsService.GetCarsInSahilAsync(page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
@@ -295,19 +295,20 @@ public class CarController : ControllerBase
             return StatusCode(500, $"Ошибка при получении автомобилей в Sahil: {ex.Message}");
         }
     }
-
+    
     [HttpGet("location/icheri-seher")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCarsInIcheriSeher()
+    public async Task<IActionResult> GetCarsInIcheriSeher([FromQuery] int page = 1, [FromQuery] int pageSize = 15)
     {
         try
         {
-            var cars = await _carsService.GetCarsInIcheriSeherAsync();
+            var cars = await _carsService.GetCarsInIcheriSeherAsync(page, pageSize);
             return Ok(cars);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Ошибка при получении автомобилей в Icheri seher: {ex.Message}");
+            return StatusCode(500, $"Ошибка при получении автомобилей в Icheri Seher: {ex.Message}");
         }
     }
+
 }
