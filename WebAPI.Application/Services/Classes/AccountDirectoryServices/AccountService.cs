@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -95,12 +94,10 @@ public class AccountService : IAccountService
                 
             if (existingUsername != null)
                 return Result.Error("Пользователь с таким именем уже существует");
-
-            var passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$";
             if (request.Password != request.ConfirmPassword)
                 return Result.Error("Пароли не совпадают");
-            if (!Regex.IsMatch(request.Password, passwordPattern))
-                return Result.Error("Пароль должен быть не менее 8 символов, содержать строчные и прописные буквы и цифру");
+            if (string.IsNullOrEmpty(request.Password) || request.Password.Length < 6)
+                return Result.Error("Пароль должен содержать минимум 6 символов");
             
             var user = new User
             {
