@@ -22,6 +22,8 @@ public interface ICarsService
     Task<IEnumerable<CarResponseDTO>> GetAvailableCarsAsync(int page = 1, int pageSize = 15);
     
     Task<IEnumerable<CarResponseDTO>> GetCarsByPriceRangeAsync(decimal minPrice, decimal maxPrice, int page = 1, int pageSize = 15);
+
+    Task<IEnumerable<CarResponseDTO>> GetCarsByCategoryAsync(string category, int page = 1, int pageSize = 15);
     
     Task<IEnumerable<CarResponseDTO>> GetMyListedCarsForVerifiedAsync(string userId);
     

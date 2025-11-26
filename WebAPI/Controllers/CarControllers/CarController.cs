@@ -311,4 +311,11 @@ public class CarController : ControllerBase
             return StatusCode(500, $"Ошибка при получении автомобилей в Icheri Seher: {ex.Message}");
         }
     }
+
+    [HttpGet("Category")]
+    [AllowAnonymous]
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsByCategory([FromQuery] string category, [FromQuery] int page = 1, [FromQuery] int pageSize = 15)
+    {
+        return await _carsService.GetCarsByCategoryAsync(category, page, pageSize);
+    }
 }

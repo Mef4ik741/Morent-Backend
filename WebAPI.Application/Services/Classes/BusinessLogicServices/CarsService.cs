@@ -378,7 +378,38 @@ public class CarsService : ICarsService
     {
         return await GetCarsByLocationsAsync(new List<string> { "Sahil" }, page, pageSize);
     }
+    
+    public async Task<IEnumerable<CarResponseDTO>> GetCarsByCategoryAsync(
+        string category, 
+        int page = 1, 
+        int pageSize = 15)
+    {
+        if (string.IsNullOrWhiteSpace(category))
+            return Enumerable.Empty<CarResponseDTO>();
 
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 15;
+
+        var normalizedCategory = category.Trim().ToLower();
+
+        var query = _context.Cars
+            .Where(c => c.Category != null && c.Category.ToLower() == normalizedCategory)
+            .AsQueryable();
+
+        var cars = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        LoadImageUrls(cars);
+
+        var now = DateTime.UtcNow;
+        var ids = cars.Select(c => c.Id).ToList();
+        var bookedIds = await UtilsClass.GetCurrentlyBookedCarIdsAsync(_context, now, ids);
+
+        return cars.Select(c => MapToResponseDTO(c, !bookedIds.Contains(c.Id)));
+    }
+    
     private async Task<IEnumerable<CarResponseDTO>> GetCarsByLocationsAsync(
         List<string> locations,
         int page,
@@ -461,7 +492,7 @@ public class CarsService : ICarsService
             primaryUrl,
             car.OwnerUserId ?? null!,
             imagesDto,
-            car.Category // ← теперь гарантированно заполнено
+            car.Category
         );
     }
 
