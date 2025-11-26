@@ -1,0 +1,13 @@
+﻿drop table "Users";
+drop table "Cars";
+drop table "UserRoles";
+drop table "Roles";
+drop table "Reviews";
+    drop table "RentNotifications";
+drop table "RefreshTokens";
+    drop table "Favorites";
+drop table "ChatMessages";
+    drop table "ChatConversations";
+drop table "Cars";
+    drop table "CarBookings";
+drop table "BalanceTransactions";

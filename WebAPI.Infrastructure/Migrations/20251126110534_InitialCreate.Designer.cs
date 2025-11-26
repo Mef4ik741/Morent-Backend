@@ -13,7 +13,7 @@ using WebAPI.Infrastructure.Data.Context;
 namespace WebAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20251126040506_InitialCreate")]
+    [Migration("20251126110534_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

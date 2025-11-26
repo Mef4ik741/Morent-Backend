@@ -25,7 +25,7 @@ public class AuthService : IAuthService
 
         if (user == null || !Verify(request.Password, user.Password))
         {
-            return TypedResult<object>.Error("Invalid login credentials");
+            return TypedResult<object>.Error("Неверный пароль или логин!");
         }
 
         var userRoles = await _context.UserRoles.Include(ur => ur.Role)
@@ -54,7 +54,7 @@ public class AuthService : IAuthService
 
         if (user == null || !Verify(request.Password, user.Password))
         {
-            return TypedResult<object>.Error("Invalid login credentials");
+            return TypedResult<object>.Error("Неверный пароль или логин!");
         }
 
         var userRoles = await _context.UserRoles.Include(ur => ur.Role)

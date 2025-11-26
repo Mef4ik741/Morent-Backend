@@ -18,7 +18,8 @@ public class User
     public int ReviewCount { get; set; } = 0;
     public int NegativeReviewCount { get; set; } = 0;
 
-    public string? ImageProfileURL { get; set; }
+    public string? ImageProfileURL { get; set; } =
+        "https://res.cloudinary.com/duygiwcsz/image/upload/v1764154785/Gemini_Generated_Image_7g894c7g894c7g89_dyrhej.png";
     public DateTime? LastAvatarUploadAt { get; set; }
     
     public decimal Balance { get; set; } = 0.00m;
