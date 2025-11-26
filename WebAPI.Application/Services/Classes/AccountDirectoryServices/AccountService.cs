@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Application.Cloudinary;
 using WebAPI.Application.DTOs;
@@ -19,14 +18,14 @@ public class AccountService : IAccountService
 {
     private readonly Context _context;
     private readonly IWebHostEnvironment _env;
-    private readonly IEmailSender _emailSender;
+    private readonly IEmailService _emailService;
     private readonly ICloudinaryService _cloudinaryService;
 
-    public AccountService(Context context, IWebHostEnvironment env, IEmailSender emailSender, ICloudinaryService cloudinaryService)
+    public AccountService(Context context, IWebHostEnvironment env, IEmailService emailService, ICloudinaryService cloudinaryService)
     {
         _context = context;
         _env = env;
-        _emailSender = emailSender;
+        _emailService = emailService;
         _cloudinaryService = cloudinaryService;
     }
 
@@ -51,21 +50,12 @@ public class AccountService : IAccountService
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (user == null)
             return Result.Error("Пользователь не найден");
-
-        var filePath = Path.Combine(_env.ContentRootPath, "wwwroot", "EmailConfirmation.html");
-        if (!File.Exists(filePath))
-            return Result.Error("Файл подтверждения не найден");
-
-        var emailContent = await File.ReadAllTextAsync(filePath);
-        var confirmationLink = $"{context.Request.Scheme}://{context.Request.Host}/api/Account/Email/Verify/{user.Id}/{token}";
         
-        var message = emailContent
-            .Replace("{Username}", username)
-            .Replace("{ConfirmationLink}", confirmationLink);
+        var confirmationLink = $"{context.Request.Scheme}://{context.Request.Host}/api/Account/Email/Verify/{user.Id}/{token}";
 
         try
         {
-            await _emailSender.SendEmailAsync(email, "Подтверждение email", message);
+            await _emailService.SendEmailConfirmationAsync(email, username, confirmationLink);
         }
         catch (Exception ex)
         {
