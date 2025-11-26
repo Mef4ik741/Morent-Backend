@@ -94,7 +94,7 @@ public class UserController : ControllerBase
         {
             return BadRequest("User id not found in token");
         }
-
+        
         var result = await _userService.GrantUserVerifiedRoleAsync(userId);
         return result;
     }

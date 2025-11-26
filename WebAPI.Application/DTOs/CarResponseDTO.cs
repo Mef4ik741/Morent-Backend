@@ -8,9 +8,10 @@ public record CarResponseDTO(
     int Year,
     decimal Price,
     string Description,
-    string? Location = null,
-    bool IsAvailable = true,
-    string? ImageUrl = null,
-    string OwnerUserId = null!,
-    IEnumerable<CarImageDTO>? Images = null
+    string Location,
+    bool IsAvailable,
+    string PrimaryImageUrl,
+    string OwnerUserId,
+    List<CarImageDTO> ImageUrls,
+    string Category   // ← добавили поле Category
 );

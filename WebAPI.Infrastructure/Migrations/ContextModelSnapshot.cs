@@ -44,9 +44,6 @@ namespace WebAPI.Infrastructure.Migrations
                     b.Property<string>("TransactionReference")
                         .HasColumnType("text");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("character varying(450)");
@@ -64,6 +61,11 @@ namespace WebAPI.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");

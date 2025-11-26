@@ -74,10 +74,12 @@ public class CarsService : ICarsService
             }
         }
 
+        var category = UtilsClass.DetectCategory(carDto.Brand, carDto.Model);
+
         var car = new Car
         {
             Id = Guid.NewGuid().ToString(),
-            Name = carDto.Name, 
+            Name = carDto.Name,
             Brand = carDto.Brand,
             Model = carDto.Model,
             Year = carDto.Year,
@@ -86,14 +88,16 @@ public class CarsService : ICarsService
             Location = carDto.Location,
             OwnerUserId = carDto.OwnerUserId,
             ImageUrl = primaryUrl,
-            ImageUrls = imageUrls
+            ImageUrls = imageUrls,
+            Category = category
         };
 
         _context.Cars.Add(car);
         await _context.SaveChangesAsync();
-        
+
         return MapToResponseDTO(car, true);
     }
+
 
     public async Task<CarResponseDTO?> UpdateCarAsync(string id, UpdateCarsDTO carDto)
     {
@@ -429,7 +433,7 @@ public class CarsService : ICarsService
     private CarResponseDTO MapToResponseDTO(Car car, bool isAvailable)
     {
         var primaryUrl = car.ImageUrl ?? car.ImageUrls?.FirstOrDefault();
-        
+    
         var imagesDto = car.ImageUrls?
             .Select((url, index) => new CarImageDTO(
                 Guid.NewGuid().ToString(),
@@ -438,7 +442,7 @@ public class CarsService : ICarsService
                 index
             ))
             .ToList() ?? new List<CarImageDTO>();
-        
+    
         return new CarResponseDTO(
             car.Id,
             car.Name,
@@ -451,9 +455,11 @@ public class CarsService : ICarsService
             isAvailable,
             primaryUrl,
             car.OwnerUserId ?? null!,
-            imagesDto
+            imagesDto,
+            car.Category ?? "Unknown"  // ← прокидываем категорию
         );
     }
+
 
     public async Task<string?> UploadCarImageAsync(IFormFile file)
     {

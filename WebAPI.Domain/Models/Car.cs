@@ -15,6 +15,8 @@ public class Car
     
     public string Model { get; set; } = null!;
     
+    public string Category { get; set; }
+    
     public int Year { get; set; }
     
     public decimal Price { get; set; }

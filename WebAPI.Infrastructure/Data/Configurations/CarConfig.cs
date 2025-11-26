@@ -13,6 +13,7 @@ public class CarConfig : IEntityTypeConfiguration<Car>
         builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
         builder.Property(c => c.Brand).IsRequired().HasMaxLength(50);
         builder.Property(c => c.Model).IsRequired().HasMaxLength(50);
+        builder.Property(c => c.Category).IsRequired().HasMaxLength(50);
         builder.Property(c => c.Year).IsRequired();
         builder.Property(c => c.Price).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(c => c.Description).IsRequired().HasMaxLength(1000);
