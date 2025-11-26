@@ -18,7 +18,6 @@ public class CloudinaryService : ICloudinaryService
         _cloudinary = new CloudinaryDotNet.Cloudinary(new Account(cloudName, apiKey, apiSecret));
     }
 
-    // 🔹 Метод для фото
     public async Task<string?> UploadAsync(Stream fileStream, string fileName) 
     {
         if (fileStream == null || fileStream.Length == 0)

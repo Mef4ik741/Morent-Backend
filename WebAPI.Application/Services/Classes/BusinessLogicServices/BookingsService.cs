@@ -76,6 +76,16 @@ public class BookingsService : IBookingsService
             throw new InvalidOperationException("Нельзя бронировать собственный автомобиль");
         }
 
+        var existingBookings = await _context.CarBookings.ToListAsync();
+
+        foreach (var b in existingBookings)
+        {
+            if (b.Car.OwnerUserId == renterUserId && b.Car.Id == dto.CarId)
+            {
+                throw new InvalidOperationException("Вы уже арендовали этот автомобиль ранее");
+            }
+        }
+
         var days = (dto.EndDate - dto.StartDate).Days;
         if (days <= 0) days = 1;
 
