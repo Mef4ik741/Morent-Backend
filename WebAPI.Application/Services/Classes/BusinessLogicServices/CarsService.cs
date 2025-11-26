@@ -432,8 +432,13 @@ public class CarsService : ICarsService
 
     private CarResponseDTO MapToResponseDTO(Car car, bool isAvailable)
     {
+        if (string.IsNullOrWhiteSpace(car.Category))
+        {
+            car.Category = UtilsClass.DetectCategory(car.Brand, car.Model);
+        }
+
         var primaryUrl = car.ImageUrl ?? car.ImageUrls?.FirstOrDefault();
-    
+
         var imagesDto = car.ImageUrls?
             .Select((url, index) => new CarImageDTO(
                 Guid.NewGuid().ToString(),
@@ -442,7 +447,7 @@ public class CarsService : ICarsService
                 index
             ))
             .ToList() ?? new List<CarImageDTO>();
-    
+
         return new CarResponseDTO(
             car.Id,
             car.Name,
@@ -456,9 +461,10 @@ public class CarsService : ICarsService
             primaryUrl,
             car.OwnerUserId ?? null!,
             imagesDto,
-            car.Category ?? "Unknown"  // ← прокидываем категорию
+            car.Category // ← теперь гарантированно заполнено
         );
     }
+
 
 
     public async Task<string?> UploadCarImageAsync(IFormFile file)
