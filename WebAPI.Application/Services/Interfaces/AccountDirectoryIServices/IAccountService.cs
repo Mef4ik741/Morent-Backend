@@ -14,7 +14,6 @@ public interface IAccountService
     public Task<Result> UploadAvatarAsync(UploadAvatarDTO request);
     public Task<Result> UpdateUsernameAsync(UpdateUsernameRequestDTO request);
     public Task<UserProfileResponseDTO> GetProfileAsync(string userId);
-    public Task<Result> InitiateLinkingAsync(InitiateLinkingDTO request);
     public Task<Result> SendLinkingCodeAsync(SendLinkingCodeDTO request);
     public Task<Result> VerifyLinkingCodeAsync(VerifyLinkingCodeDTO request);
     public Task<Result> ForgotPasswordByUsernameAsync(ForgotPasswordByUsernameDTO request);

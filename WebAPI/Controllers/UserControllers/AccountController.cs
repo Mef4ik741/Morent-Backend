@@ -12,13 +12,12 @@ public class AccountController : ControllerBase
 {
     private readonly IAccountService _accountService;
     private readonly ITokenService _tokenService;
-    private readonly IEmailService _emailService;
+
     
-    public AccountController(IAccountService accountService, ITokenService tokenService, IEmailService emailService)
+    public AccountController(IAccountService accountService, ITokenService tokenService)
     {
         _accountService = accountService;
         _tokenService = tokenService;
-        _emailService = emailService;
     }
 
     [HttpPost("Register")]

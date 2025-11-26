@@ -65,9 +65,9 @@ public class CarsService : ICarsService
 
         if (carDto.GalleryImageUrls != null)
         {
-            foreach (var url in carDto.GalleryImageUrls.Distinct())
+            foreach (var url in carDto.GalleryImageUrls)
             {
-                if (!string.Equals(url, primaryUrl, StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrWhiteSpace(url))
                 {
                     imageUrls.Add(url);
                 }
@@ -128,9 +128,9 @@ public class CarsService : ICarsService
 
             if (carDto.GalleryImageUrls != null)
             {
-                foreach (var url in carDto.GalleryImageUrls.Distinct())
+                foreach (var url in carDto.GalleryImageUrls)
                 {
-                    if (!string.Equals(url, primaryUrl, StringComparison.OrdinalIgnoreCase))
+                    if (!string.IsNullOrWhiteSpace(url))
                     {
                         imageUrls.Add(url);
                     }
