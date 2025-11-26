@@ -47,6 +47,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[112.1.1-alpha.0.19, )"
             }
           },
           "imports": [
@@ -120,6 +124,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[112.1.1-alpha.0.19, )"
             }
           },
           "imports": [

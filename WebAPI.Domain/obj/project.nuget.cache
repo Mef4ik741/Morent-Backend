@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rqrMqsrMQA8=",
+  "dgSpecHash": "eJWjmx3RH08=",
   "success": true,
   "projectFilePath": "C:\\Users\\V\\RiderProjects\\Morent-Backend\\WebAPI.Domain\\WebAPI.Domain.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,8 @@
     "C:\\Users\\V\\.nuget\\packages\\microsoft.extensions.options\\9.0.1\\microsoft.extensions.options.9.0.1.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.1\\microsoft.extensions.primitives.9.0.1.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512",
-    "C:\\Users\\V\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512"
+    "C:\\Users\\V\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
+    "C:\\Users\\V\\.nuget\\packages\\restsharp\\112.1.1-alpha.0.19\\restsharp.112.1.1-alpha.0.19.nupkg.sha512"
   ],
   "logs": []
 }

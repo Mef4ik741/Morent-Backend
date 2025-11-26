@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1yftNN8IocM=",
+  "dgSpecHash": "nkgoxEDy2gg=",
   "success": true,
   "projectFilePath": "C:\\Users\\V\\RiderProjects\\Morent-Backend\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
@@ -125,6 +125,7 @@
     "C:\\Users\\V\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\npgsql\\9.0.3\\npgsql.9.0.3.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
+    "C:\\Users\\V\\.nuget\\packages\\restsharp\\112.1.1-alpha.0.19\\restsharp.112.1.1-alpha.0.19.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\V\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
