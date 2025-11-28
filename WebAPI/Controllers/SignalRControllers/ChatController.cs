@@ -19,15 +19,12 @@ namespace WebAPI.Controllers.SignalRControllers;
         private readonly IHubContext<ChatHub> _hub;
         private readonly ICloudinaryService _cloudinaryService;
         private readonly IUserService _userService;
-        private readonly IWebHostEnvironment _environment;
-
-        public ChatController(Context context, IHubContext<ChatHub> hub, ICloudinaryService cloudinaryService, IUserService userService, IWebHostEnvironment environment)
+        public ChatController(Context context, IHubContext<ChatHub> hub, ICloudinaryService cloudinaryService, IUserService userService)
         {
             _context = context;
             _hub = hub;
             _cloudinaryService = cloudinaryService;
             _userService = userService;
-            _environment = environment;
         }
 
         [HttpPut("messages/{id}")]
@@ -150,7 +147,7 @@ namespace WebAPI.Controllers.SignalRControllers;
 
 
         [HttpPost("messages")]
-        public async Task<ActionResult<ChatMessage>> SaveMessage([FromBody] WebAPI.Application.DTOs.SendMessageDto messageDto)
+        public async Task<ActionResult<ChatMessage>> SaveMessage([FromBody] SendMessageDto messageDto)
         {
             await UpdateOrCreateConversation(messageDto.FromUserId, messageDto.ToUserId);
             await _context.SaveChangesAsync();
@@ -281,7 +278,7 @@ namespace WebAPI.Controllers.SignalRControllers;
 
         [HttpPost("upload-voice")]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult<WebAPI.Application.DTOs.VoiceUploadResponseDto>> UploadVoiceMessage(IFormFile voiceFile, [FromForm] string fromUserId, [FromForm] string toUserId)
+        public async Task<ActionResult<VoiceUploadResponseDto>> UploadVoiceMessage(IFormFile voiceFile, [FromForm] string fromUserId, [FromForm] string toUserId)
         {
             try
             {

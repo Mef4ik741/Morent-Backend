@@ -17,4 +17,9 @@ public interface IUserService
     Task<IEnumerable<UserSearchResultDto>> SearchUsersByUsernameAsync(string query, int limit);
     Task<UserSearchResultDto?> GetUserByIdAsync(string userId);
     Task<IActionResult> GrantUserVerifiedRoleAsync(string userId);
+    Task<IActionResult> GetUsersMonthlyStats();
+    Task<IActionResult> GetTopUsersByReviews();
+    Task<IActionResult> GetVerificationStats();
+    Task<IActionResult> GetTodayHourlyStats();
+    Task<IActionResult> GetWeeklyActivity();
 }

@@ -1,5 +1,3 @@
-using WebAPI.Domain.enums;
-
 namespace WebAPI.Domain.Models;
 
 public class BalanceTransaction

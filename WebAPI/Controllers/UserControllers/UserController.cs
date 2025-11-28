@@ -147,4 +147,39 @@ public class UserController : ControllerBase
     {
         return await _userService.DeleteUser(id);
     }
+
+    [HttpGet("GetUsersMonthlyStats")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetUsersMonthlyStats()
+    {
+        return await _userService.GetUsersMonthlyStats();
+    }
+
+    [HttpGet("GetTopUsersByReviews")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetTopUsersByReviews()
+    {
+        return await _userService.GetTopUsersByReviews();
+    }
+    
+    [HttpGet("GetVerificationStats")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetVerificationStats()
+    {
+        return await _userService.GetVerificationStats();
+    }
+
+    [HttpGet("GetTodayHourlyStats")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async Task<IActionResult> GetTodayHourlyStats()
+    {
+        return await _userService.GetTodayHourlyStats();
+    }
+    
+    [HttpGet("GetWeeklyActivity")]
+    [Authorize(Policy = "AdminPolicy")]
+    public async  Task<IActionResult> GetWeeklyActivity()
+    {
+        return await _userService.GetWeeklyActivity();
+    }
 }

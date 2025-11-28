@@ -458,4 +458,87 @@ public class UserService : IUserService
             return new ObjectResult(new { error = ex.Message }) { StatusCode = 500 };
         }
     }
+    
+    public async Task<IActionResult> GetUsersMonthlyStats()
+    {
+        var months = await _context.Users
+            .GroupBy(u => new { u.CreatedAt.Year, u.CreatedAt.Month })
+            .Select(g => new
+            {
+                g.Key.Year,
+                g.Key.Month,
+                Count = g.Count()
+            })
+            .OrderBy(g => g.Year).ThenBy(g => g.Month)
+            .Take(12)
+            .ToListAsync();
+
+        return new OkObjectResult(months);
+    }
+    
+    public async Task<IActionResult> GetTopUsersByReviews()
+    {
+        var top = await _context.Users
+            .OrderByDescending(u => u.ReviewCount)
+            .Take(10)
+            .Select(u => new
+            {
+                u.Id,
+                u.Username,
+                u.ReviewCount
+            })
+            .ToListAsync();
+
+        return new OkObjectResult(top);
+    }
+    
+    public async Task<IActionResult> GetVerificationStats()
+    {
+        var total = await _context.Users.CountAsync();
+
+        var confirmed = await _context.Users.CountAsync(u => u.IsConfirmed);
+        var verified = await _context.Users.CountAsync(u => u.IsVerified);
+
+        return new OkObjectResult(new
+        {
+            ConfirmedPercentage = total == 0 ? 0 : (confirmed * 100 / total),
+            VerifiedPercentage = total == 0 ? 0 : (verified * 100 / total),
+        });
+    }
+    
+    public async Task<IActionResult> GetTodayHourlyStats()
+    {
+        var today = DateTime.UtcNow.Date;
+
+        var stats = await _context.Users
+            .Where(u => u.CreatedAt >= today)
+            .GroupBy(u => u.CreatedAt.Hour)
+            .Select(g => new
+            {
+                Hour = g.Key,
+                Count = g.Count()
+            })
+            .OrderBy(g => g.Hour)
+            .ToListAsync();
+
+        return new OkObjectResult(stats);
+    }
+    
+    public async Task<IActionResult> GetWeeklyActivity()
+    {
+        var monthAgo = DateTime.UtcNow.AddDays(-30);
+
+        var stats = await _context.Users
+            .Where(u => u.CreatedAt >= monthAgo)
+            .GroupBy(u => u.CreatedAt.DayOfWeek)
+            .Select(g => new
+            {
+                Day = g.Key.ToString(),
+                Count = g.Count()
+            })
+            .OrderBy(g => g.Day)
+            .ToListAsync();
+
+        return new OkObjectResult(stats);
+    }
 }
