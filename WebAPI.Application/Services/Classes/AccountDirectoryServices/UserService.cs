@@ -533,12 +533,18 @@ public class UserService : IUserService
             .GroupBy(u => u.CreatedAt.DayOfWeek)
             .Select(g => new
             {
-                Day = g.Key.ToString(),
+                DayOfWeek = g.Key,
                 Count = g.Count()
             })
-            .OrderBy(g => g.Day)
+            .OrderBy(g => g.DayOfWeek)
             .ToListAsync();
 
-        return new OkObjectResult(stats);
+        var result = stats.Select(s => new
+        {
+            Day = s.DayOfWeek.ToString(),
+            s.Count
+        }).ToList();
+
+        return new OkObjectResult(result);
     }
 }
