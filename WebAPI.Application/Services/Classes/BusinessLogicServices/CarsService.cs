@@ -361,7 +361,7 @@ public class CarsService : ICarsService
 
     public async Task<IEnumerable<CarResponseDTO>> GetCarsInBakiAsync(int page = 1, int pageSize = 15)
     {
-        return await GetCarsByLocationsAsync(new List<string> { "Baki" }, page, pageSize);  
+        return await GetCarsByLocationsAsync(new List<string> { "Baki", "Baku" }, page, pageSize);  
     }
 
     public async Task<IEnumerable<CarResponseDTO>> GetCarsInYasamalAsync(int page = 1, int pageSize = 15)

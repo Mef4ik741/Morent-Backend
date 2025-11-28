@@ -15,12 +15,10 @@ namespace WebAPI.Controllers.CarControllers;
 public class FavoritesController : ControllerBase
 {
     private readonly IFavoritesService _favoritesService;
-    private readonly IConfiguration _configuration;
 
-    public FavoritesController(IFavoritesService favoritesService, IConfiguration configuration)
+    public FavoritesController(IFavoritesService favoritesService)
     {
         _favoritesService = favoritesService;
-        _configuration = configuration;
     }
 
     [HttpPost("add")]

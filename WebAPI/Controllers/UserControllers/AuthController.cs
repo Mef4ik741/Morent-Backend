@@ -11,12 +11,10 @@ namespace WebAPI.Controllers.UserControllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
-    private readonly IConfiguration _configuration;
 
-    public AuthController(IAuthService authService, IConfiguration configuration)
+    public AuthController(IAuthService authService)
     {
         _authService = authService;
-        _configuration = configuration;
     }
 
     [HttpPost("Login")]

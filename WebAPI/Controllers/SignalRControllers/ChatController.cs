@@ -327,7 +327,6 @@ namespace WebAPI.Controllers.SignalRControllers;
                 await _hub.Clients.Group($"User_{toUserId}").SendAsync("ReceiveVoiceMessage", fromUserId, fileUrl, message, ts);
                 await _hub.Clients.Group($"User_{toUserId}").SendAsync("ReceiveVoiceMessageV2", fromUserId, id, fileUrl, message, ts);
 
-                // Подтверждение отправителю
                 await _hub.Clients.Group($"User_{fromUserId}").SendAsync("VoiceMessageSent", toUserId, fileUrl, message, ts);
                 await _hub.Clients.Group($"User_{fromUserId}").SendAsync("VoiceMessageSentV2", toUserId, id, fileUrl, message, ts);
 
@@ -361,7 +360,6 @@ namespace WebAPI.Controllers.SignalRControllers;
                 if (imageFile == null || imageFile.Length == 0)
                     return BadRequest("Файл изображения не выбран");
 
-                // Проверяем размер файла (максимум 10MB)
                 if (imageFile.Length > 10 * 1024 * 1024)
                     return BadRequest("Размер файла не должен превышать 10MB");
 
@@ -379,9 +377,8 @@ namespace WebAPI.Controllers.SignalRControllers;
                 if (string.IsNullOrEmpty(fileUrl))
                 {
                    return StatusCode(500, "Ошибка загрузки изображения в облако");
-                 }
+                }
 
-                // Сохраняем сообщение с изображением в базу данных
                 var timestamp = DateTime.UtcNow;
                 var message = $"Изображение: {imageFile.FileName}";
 
@@ -403,11 +400,9 @@ namespace WebAPI.Controllers.SignalRControllers;
                 var id = chatMessage.Id;
                 var ts = chatMessage.Timestamp;
 
-                // Доставка получателю
                 await _hub.Clients.Group($"User_{toUserId}").SendAsync("ReceiveImageMessage", fromUserId, fileUrl, message, ts);
                 await _hub.Clients.Group($"User_{toUserId}").SendAsync("ReceiveImageMessageV2", fromUserId, id, fileUrl, message, ts);
 
-                // Подтверждение отправителю
                 await _hub.Clients.Group($"User_{fromUserId}").SendAsync("ImageMessageSent", toUserId, fileUrl, message, ts);
                 await _hub.Clients.Group($"User_{fromUserId}").SendAsync("ImageMessageSentV2", toUserId, id, fileUrl, message, ts);
 
@@ -422,8 +417,6 @@ namespace WebAPI.Controllers.SignalRControllers;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error uploading image: {ex.Message}");
-                Console.WriteLine($"📋 Stack trace: {ex.StackTrace}");
                 return StatusCode(500, new { 
                     error = "Ошибка сервера при загрузке изображения", 
                     details = ex.Message,
@@ -544,7 +537,6 @@ namespace WebAPI.Controllers.SignalRControllers;
 
             try
             {
-                // Проверяем существование пользователей
                 var fromUserExists = await _context.Users.AnyAsync(u => u.Id == dto.FromUserId);
                 var toUserExists = await _context.Users.AnyAsync(u => u.Id == dto.ToUserId);
 
@@ -553,23 +545,20 @@ namespace WebAPI.Controllers.SignalRControllers;
                     return NotFound("One or both users not found");
                 }
 
-                // Создаем или обновляем разговор
                 await UpdateOrCreateConversation(dto.FromUserId, dto.ToUserId);
                 await _context.SaveChangesAsync();
 
-                // Получаем информацию о собеседнике
                 var otherUser = await _context.Users.FindAsync(dto.ToUserId);
                 
                 var conversationDto = new ConversationDTO(
-                    Guid.NewGuid().ToString(), // Временный ID
+                    Guid.NewGuid().ToString(),
                     dto.ToUserId,
                     otherUser?.Username ?? "Unknown",
                     dto.InitialMessage ?? "",
                     DateTime.UtcNow,
-                    0 // Нет непрочитанных сообщений в новом чате
+                    0
                 );
 
-                // Если есть начальное сообщение, отправляем его
                 if (!string.IsNullOrWhiteSpace(dto.InitialMessage))
                 {
                     var message = new ChatMessage
