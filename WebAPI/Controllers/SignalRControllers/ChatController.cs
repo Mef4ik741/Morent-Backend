@@ -19,6 +19,7 @@ namespace WebAPI.Controllers.SignalRControllers;
         private readonly IHubContext<ChatHub> _hub;
         private readonly ICloudinaryService _cloudinaryService;
         private readonly IUserService _userService;
+        
         public ChatController(Context context, IHubContext<ChatHub> hub, ICloudinaryService cloudinaryService, IUserService userService)
         {
             _context = context;

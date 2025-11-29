@@ -194,3 +194,4 @@ C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\compressed\ib3e6
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\bin\Debug\net9.0\Npgsql.dll
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\V\RiderProjects\Morent-Backend\WebAPI\obj\Debug\net9.0\WebAPI.sourcelink.json
+C:\Users\V\RiderProjects\Morent-Backend\WebAPI\bin\Debug\net9.0\RestSharp.dll

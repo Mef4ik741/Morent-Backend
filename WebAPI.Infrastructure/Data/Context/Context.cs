@@ -33,5 +33,9 @@ public class Context : DbContext
         modelBuilder.ApplyConfiguration(new CarBookingConfig());
         modelBuilder.ApplyConfiguration(new RentNotificationConfig());
         modelBuilder.ApplyConfiguration(new ReviewConfig());
+        
+        modelBuilder.Entity<User>()
+            .Property(u => u.Rank)
+            .HasConversion<string>();
     }
 }

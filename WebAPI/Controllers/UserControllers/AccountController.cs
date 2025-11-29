@@ -113,25 +113,6 @@ public class AccountController : ControllerBase
         return Ok(new { result.Message });
     }
 
-    [HttpPost("send-linking-code")]
-    public async Task<IActionResult> SendLinkingCode([FromBody] SendLinkingCodeDTO request)
-    {
-        var result = await _accountService.SendLinkingCodeAsync(request);
-        
-        if (!result.IsSuccess) { return BadRequest(new { result.Message }); }
-        return Ok(new { result.Message });
-    }
-
-    [HttpPost("verify-linking-code")]
-    public async Task<IActionResult> VerifyLinkingCode([FromBody] VerifyLinkingCodeDTO request)
-    {
-        var result = await _accountService.VerifyLinkingCodeAsync(request);
-        
-        if (!result.IsSuccess){ return BadRequest(new { result.Message }); }
-        
-        return Ok(new { result.Message, Success = true });
-    }
-
     [Authorize]
     [HttpGet("profile")]
     public async Task<IActionResult> GetUserProfile()

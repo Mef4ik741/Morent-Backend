@@ -30,9 +30,6 @@ public static class ApplicationBuilderExtensions
         // Configure CORS
         app.UseCors("AllowFrontend");
         
-        // Static files не нужны для API проекта
-        // app.UseStaticFiles();
-        
         // Authentication & Authorization
         app.UseAuthentication();
         app.UseAuthorization();

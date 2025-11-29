@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v9.0": {
       "WebAPI.Domain/1.0.0": {
         "dependencies": {
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
+          "RestSharp": "112.1.1-alpha.0.19"
         },
         "runtime": {
           "WebAPI.Domain.dll": {}
@@ -174,6 +175,14 @@
             "fileVersion": "9.0.4.0"
           }
         }
+      },
+      "RestSharp/112.1.1-alpha.0.19": {
+        "runtime": {
+          "lib/net9.0/RestSharp.dll": {
+            "assemblyVersion": "112.1.1.0",
+            "fileVersion": "112.1.1.0"
+          }
+        }
       }
     }
   },
@@ -287,6 +296,13 @@
       "sha512": "sha512-mw5vcY2IEc7L+IeGrxpp/J5OSnCcjkjAgJYCm/eD52wpZze8zsSifdqV7zXslSMmfJG2iIUGZyo3KuDtEFKwMQ==",
       "path": "npgsql.entityframeworkcore.postgresql/9.0.4",
       "hashPath": "npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512"
+    },
+    "RestSharp/112.1.1-alpha.0.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qAG8Ydp6einBwqqgTG0PgIndncMq+5dvqUm5gcHTUDyvRnP7PVgo3tIzLpJgVKnddzDZXG8fy75Ufb6yT+vcUg==",
+      "path": "restsharp/112.1.1-alpha.0.19",
+      "hashPath": "restsharp.112.1.1-alpha.0.19.nupkg.sha512"
     }
   }
 }

@@ -25,10 +25,9 @@ public class SmtpEmailSender : IEmailSender
 
         if (string.IsNullOrWhiteSpace(host) || string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(from))
         {
-            // SMTP не настроен — тихо выходим, чтобы не падало приложение
             return;
         }
-
+        
         using var client = new SmtpClient(host, port)
         {
             EnableSsl = enableSsl,

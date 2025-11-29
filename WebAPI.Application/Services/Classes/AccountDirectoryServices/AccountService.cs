@@ -17,14 +17,12 @@ namespace WebAPI.Application.Services.Classes.AccountDirectoryServices;
 public class AccountService : IAccountService
 {
     private readonly Context _context;
-    private readonly IWebHostEnvironment _env;
     private readonly IEmailService _emailService;
     private readonly ICloudinaryService _cloudinaryService;
 
-    public AccountService(Context context, IWebHostEnvironment env, IEmailService emailService, ICloudinaryService cloudinaryService)
+    public AccountService(Context context, IEmailService emailService, ICloudinaryService cloudinaryService)
     {
         _context = context;
-        _env = env;
         _emailService = emailService;
         _cloudinaryService = cloudinaryService;
     }
@@ -223,6 +221,7 @@ public class AccountService : IAccountService
             .Include(u => u.UserRoles)
             .ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(u => u.Id == userId);
+        
         if (user == null){ return null; }
 
         return new UserProfileResponseDTO
@@ -243,80 +242,6 @@ public class AccountService : IAccountService
             LastAvatarUploadAt = user.LastAvatarUploadAt,
             Roles = user.UserRoles?.Select(ur => ur.Role.Name).ToList() ?? new List<string>()
         };
-    }
-
-    public async Task<Result> InitiateLinkingAsync(InitiateLinkingDTO request)
-    {
-        try
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
-            if (user == null){ return Result.Error("Пользователь не найден"); }
-            
-            return Result.Success($"Привязка инициирована для пользователя {request.Username}");
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"Ошибка при инициации привязки: {ex.Message}");
-        }
-    }
-
-    public async Task<Result> SendLinkingCodeAsync(SendLinkingCodeDTO request)
-    {
-        try
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
-            if (user == null)
-                return Result.Error("Пользователь не найден");
-            
-            return Result.Success($"Код отправлен для Telegram ID: {request.TelegramId}");
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"Ошибка при отправке кода привязки: {ex.Message}");
-        }
-    }
-
-    public async Task<Result> VerifyLinkingCodeAsync(VerifyLinkingCodeDTO request)
-    {
-        try
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
-            if (user == null)
-            {
-                return Result.Error("Пользователь не найден");
-            }
-            using var httpClient = new HttpClient();
-            var telegramBotRequest = new
-            {
-                request.Username,
-                request.LinkingCode
-            };
-
-            var json = JsonSerializer.Serialize(telegramBotRequest);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            try
-            {
-                var response = await httpClient.PostAsync("http://localhost:5260/api/telegram/verify-linking-code", content);
-                
-                if (response.IsSuccessStatusCode)
-                {
-                    return Result.Success("Код подтвержден, привязка завершена");
-                }
-                else
-                {
-                    return Result.Error("Неверный код привязки");
-                }
-            }
-            catch (HttpRequestException)
-            {
-                return Result.Error("Сервис Telegram бота недоступен");
-            }
-        }
-        catch (Exception ex)
-        {
-            return Result.Error($"Ошибка при проверке кода привязки: {ex.Message}");
-        }
     }
 
     public async Task<Result> ForgotPasswordByUsernameAsync(ForgotPasswordByUsernameDTO request)
