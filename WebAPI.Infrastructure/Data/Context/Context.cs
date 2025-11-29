@@ -10,7 +10,6 @@ public class Context : DbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserRole> UserRoles { get; set; }
     public DbSet<Review> Reviews { get; set; }
-    public DbSet<BalanceTransaction> BalanceTransactions { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Car> Cars { get; set; }
     public DbSet<ChatMessage> ChatMessages { get; set; }

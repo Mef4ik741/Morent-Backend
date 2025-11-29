@@ -200,8 +200,9 @@ public class AccountService : IAccountService
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == request.UserId);
             if (user == null)
+            {
                 return Result.Error("Пользователь не найден");
-
+            }
             var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username && u.Id != request.UserId);
             if (existingUser != null){ return Result.Error("Пользователь с таким именем уже существует"); }
             user.Username = request.Username;
@@ -222,7 +223,7 @@ public class AccountService : IAccountService
             .ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(u => u.Id == userId);
         
-        if (user == null){ return null; }
+        if (user == null) { return null; }
 
         return new UserProfileResponseDTO
         {
