@@ -25,7 +25,6 @@ public class User
     public decimal Balance { get; set; } = 0.00m;
 
     public ICollection<UserRole> UserRoles { get; set; }
-    public ICollection<BalanceTransaction> BalanceTransactions { get; set; }
     public ICollection<RefreshToken> RefreshTokens { get; set; }
     public DateTime CreatedAt { get; set; }
 }

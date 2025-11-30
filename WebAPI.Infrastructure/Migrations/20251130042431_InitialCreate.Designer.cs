@@ -13,8 +13,8 @@ using WebAPI.Infrastructure.Data.Context;
 namespace WebAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20251129180758_FixCarBookingShadowKey")]
-    partial class FixCarBookingShadowKey
+    [Migration("20251130042431_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,38 +25,6 @@ namespace WebAPI.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("WebAPI.Domain.Models.BalanceTransaction", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PaymentMethod")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TransactionReference")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("character varying(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BalanceTransaction");
-                });
 
             modelBuilder.Entity("WebAPI.Domain.Models.Car", b =>
                 {
@@ -571,17 +539,6 @@ namespace WebAPI.Infrastructure.Migrations
                     b.ToTable("UserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("WebAPI.Domain.Models.BalanceTransaction", b =>
-                {
-                    b.HasOne("WebAPI.Domain.Models.User", "User")
-                        .WithMany("BalanceTransactions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WebAPI.Domain.Models.CarBooking", b =>
                 {
                     b.HasOne("WebAPI.Domain.Models.Car", "Car")
@@ -702,8 +659,6 @@ namespace WebAPI.Infrastructure.Migrations
 
             modelBuilder.Entity("WebAPI.Domain.Models.User", b =>
                 {
-                    b.Navigation("BalanceTransactions");
-
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("UserRoles");

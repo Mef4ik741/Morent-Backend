@@ -80,7 +80,7 @@ namespace WebAPI.Infrastructure.Migrations
                     Password = table.Column<string>(type: "text", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "boolean", nullable: false),
                     IsVerified = table.Column<bool>(type: "boolean", nullable: false),
-                    Rank = table.Column<int>(type: "integer", nullable: false),
+                    Rank = table.Column<string>(type: "text", nullable: false),
                     ReviewCount = table.Column<int>(type: "integer", nullable: false),
                     NegativeReviewCount = table.Column<int>(type: "integer", nullable: false),
                     ImageProfileURL = table.Column<string>(type: "text", nullable: true),
@@ -169,29 +169,6 @@ namespace WebAPI.Infrastructure.Migrations
                         columns: x => new { x.FromUserId, x.ToUserId },
                         principalTable: "ChatConversations",
                         principalColumns: new[] { "User1Id", "User2Id" },
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BalanceTransactions",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "character varying(450)", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "text", nullable: true),
-                    TransactionReference = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BalanceTransactions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_BalanceTransactions_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -309,11 +286,6 @@ namespace WebAPI.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BalanceTransactions_UserId",
-                table: "BalanceTransactions",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CarBookings_CarId_StartDate_EndDate",
                 table: "CarBookings",
                 columns: new[] { "CarId", "StartDate", "EndDate" });
@@ -427,9 +399,6 @@ namespace WebAPI.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "BalanceTransactions");
-
             migrationBuilder.DropTable(
                 name: "ChatMessages");
 

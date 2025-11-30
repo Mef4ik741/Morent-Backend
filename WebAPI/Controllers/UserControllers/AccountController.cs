@@ -82,39 +82,9 @@ public class AccountController : ControllerBase
         if (profile == null) { return NotFound(new { Message = "Пользователь не найден" }); }
         return Ok(profile);
     }
-
-    [HttpPost("forgot-password-by-username")]
-    public async Task<IActionResult> ForgotPasswordByUsernameAsync([FromBody] ForgotPasswordByUsernameDTO request)
-    {
-        var result = await _accountService.ForgotPasswordByUsernameAsync(request);
-        
-        if (!result.IsSuccess){ return BadRequest(new { result.Message }); }
-        return Ok(new { result.Message });
-    }
-
-    [HttpPost("verify-reset-token-by-username")]
-    public async Task<IActionResult> VerifyResetTokenByUsernameAsync([FromBody] VerifyResetTokenByUsernameDTO request)
-    {
-        var result = await _accountService.VerifyResetTokenByUsernameAsync(request);
-        
-        if (!result.IsSuccess)
-            return BadRequest(new { result.Message });
-            
-        return Ok(new { result.Message, Valid = true });
-    }
-
-    [HttpPost("reset-password-by-username")]
-    public async Task<IActionResult> ResetPasswordByUsernameAsync([FromBody] ResetPasswordByUsernameDTO request)
-    {
-        var result = await _accountService.ResetPasswordByUsernameAsync(request);
-        
-        if (!result.IsSuccess){ return BadRequest(new { result.Message }); }
-            
-        return Ok(new { result.Message });
-    }
-
-    [Authorize]
+    
     [HttpGet("profile")]
+    [Authorize]
     public async Task<IActionResult> GetUserProfile()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
