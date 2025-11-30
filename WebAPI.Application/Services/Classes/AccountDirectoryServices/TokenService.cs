@@ -209,27 +209,6 @@ public class TokenService : ITokenService
         return true;
     }
 
-    public async Task<bool> ValidateRefreshTokenAsync(string refreshToken)
-    {
-        var token = await _context.RefreshTokens
-            .FirstOrDefaultAsync(rt => rt.Token == refreshToken);
-
-        return token != null && token.IsActive;
-    }
-
-    public async Task CleanupExpiredTokensAsync()
-    {
-        var expiredTokens = await _context.RefreshTokens
-            .Where(rt => rt.ExpiresAt <= DateTime.UtcNow)
-            .ToListAsync();
-
-        if (expiredTokens.Any())
-        {
-            _context.RefreshTokens.RemoveRange(expiredTokens);
-            await _context.SaveChangesAsync();
-        }
-    }
-
     private string GenerateRefreshToken()
     {
         var randomBytes = new byte[64];
