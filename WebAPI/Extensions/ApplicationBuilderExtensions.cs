@@ -11,7 +11,7 @@ public static class ApplicationBuilderExtensions
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth API v1");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Morent API");
             c.RoutePrefix = "swagger"; // открывать по /swagger
         });
 
