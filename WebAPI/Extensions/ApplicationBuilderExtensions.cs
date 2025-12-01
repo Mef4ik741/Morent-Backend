@@ -45,12 +45,9 @@ public static class ApplicationBuilderExtensions
         app.MapScalarApiReference(options =>
         {
             options.WithOpenApiRoutePattern("/openapi/{documentName}.json")
-                   .WithTitle("Auth API")
+                   .WithTitle("Morent API")
                    .WithTheme(ScalarTheme.BluePlanet);
         });
-        
-        // SPA fallback не нужен для API проекта
-        // app.MapFallbackToFile("index.html");
 
         return app;
     }
