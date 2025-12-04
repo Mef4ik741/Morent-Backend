@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi.Models;
 using WebAPI.Application.Cloudinary;
+using WebAPI.OpenApi;
 using WebAPI.Infrastructure.Data.Context;
 using WebAPI.Application.Services.Interfaces.BusinessLogicIServices;
 using WebAPI.Application.Services.Classes.AccountDirectoryServices;
@@ -23,7 +24,10 @@ public static class ApplicationServiceExtensions
         services.AddControllers();
 
         // Built-in OpenAPI support for Scalar /openapi/v1.json
-        services.AddOpenApi();
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+        });
 
         // Swagger
         services.AddEndpointsApiExplorer();
