@@ -7,6 +7,14 @@ public static class ApplicationBuilderExtensions
 {
     public static WebApplication UseApplicationMiddleware(this WebApplication app)
     {
+        
+        app.MapScalarApiReference(options =>
+        {
+            options.WithOpenApiRoutePattern("/openapi/{documentName}.json")
+                .WithTitle("Morent API")
+                .WithTheme(ScalarTheme.BluePlanet);
+        });
+        
         // Swagger UI и Scalar (включены во всех окружениях для удобства разработки)
         app.UseSwagger();
         app.UseSwaggerUI(c =>
@@ -42,12 +50,6 @@ public static class ApplicationBuilderExtensions
         app.MapHub<ChatHub>("/chatHub");
         
         // API documentation - Scalar UI по адресу /scalar
-        app.MapScalarApiReference(options =>
-        {
-            options.WithOpenApiRoutePattern("/openapi/{documentName}.json")
-                   .WithTitle("Morent API")
-                   .WithTheme(ScalarTheme.BluePlanet);
-        });
 
         return app;
     }

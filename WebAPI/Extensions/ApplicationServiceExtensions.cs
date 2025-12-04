@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi.Models;
 using WebAPI.Application.Cloudinary;
 using WebAPI.Infrastructure.Data.Context;
@@ -20,6 +21,9 @@ public static class ApplicationServiceExtensions
     {
         // Контроллеры
         services.AddControllers();
+
+        // Built-in OpenAPI support for Scalar /openapi/v1.json
+        services.AddOpenApi();
 
         // Swagger
         services.AddEndpointsApiExplorer();

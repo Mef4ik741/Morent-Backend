@@ -36,8 +36,10 @@ public class ReviewController : ControllerBase
         var comments = await _reviewService.GetUserReviewsAsync(userId);
 
         if (comments == null || comments.Count == 0)
+        {
             return NotFound("У пользователя нет комментариев.");
-
+        }
+        
         return Ok(comments);
     }
 }
